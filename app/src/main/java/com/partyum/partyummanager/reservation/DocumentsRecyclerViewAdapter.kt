@@ -10,8 +10,8 @@ class DocumentsRecyclerViewAdapter(private val viewModel: ReservationViewModel) 
 
     override fun getItemCount(): Int {
         // 문서 수 반환
-        return if (viewModel.selectedReservation.value?.docs != null) {
-            viewModel.selectedReservation.value!!.docs.size
+        return if (viewModel.reservation.value?.docs != null) {
+            viewModel.reservation.value!!.docs.size
         } else {
             0
         }

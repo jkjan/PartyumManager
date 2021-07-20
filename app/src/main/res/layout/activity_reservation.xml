@@ -44,7 +44,7 @@
 
                     <TextView
                             style="@style/reservation_item_name"
-                            android:text="@{viewModel.selectedReservation.groomName}" />
+                            android:text="@{viewModel.reservation.groomName}" />
 
                     <View
                             android:layout_width="30dp"
@@ -56,7 +56,7 @@
 
                     <TextView
                             style="@style/reservation_item_name"
-                            android:text="@{viewModel.selectedReservation.brideName}" />
+                            android:text="@{viewModel.reservation.brideName}" />
 
                 </LinearLayout>
 
