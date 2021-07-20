@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">PartyumManager</string>
+    <string name="logo">파티움 로고</string>
+    <string name="title_img">파티움 타이틀</string>
+    <string name="groom">신랑</string>
+    <string name="bride">신부</string>
+
+    <string name="stub_groom">진윤섭</string>
+    <string name="stub_bride">김은희</string>
+
+    <string name="stub_datetime">2021–07–14 17:53:09</string>
+    <string name="phone_regex">^\\d{3}-\\d{3,4}-\\d{4}$</string>
+
+    <!-- 메인 화면 -->
+    <string name="consulting">상담</string>
+    <string name="new_reservation">새 예약</string>
+    <string name="search">검색</string>
+    <string name="reservation_status">예약 현황</string>
+    <string name="administrator">관리자</string>
+    <string name="copyright_info">Copyright 2021. Partyum House Suwon. All rights reserved.</string>
+    <string name="main_button_divider">메인 버튼 나누기</string>
+
+    <dimen name="main_button_margin">0dp</dimen>
+    <dimen name="main_button_size">25sp</dimen>
+    <dimen name="main_button_padding">10dp</dimen>
+
+    <string name="main_to_reservation_intent">reservations</string>
+
+
+    <!-- 검색창 -->
+    <string name="search_input">신랑/신부 전화번호</string>
+    <string name="search_submit">검색</string>
+    <string name="search_description">신랑 혹은 신부님의 전화번호를 입력해주세요.</string>
+    <string name="search_not_found">검색 결과가 없습니다.</string>
+    <string name="search_invalid_number">잘못된 전화번호입니다.</string>
+
+
+    <!-- 예약 화면 -->
+    <dimen name="reservation_item_name_size">20sp</dimen>
+    <dimen name="reservation_item_pos_size">14sp</dimen>
+    <string name="reservation_select_desc">예약건을 선택해주세요.</string>
+
+    <string name="print_all">전체 출력</string>
+    <string name="add_docu">문서 추가</string>
+    <string name="created_date_time">생성 시간: </string>
+    <string name="modified_date_time">수정 시간: </string>
+
+    <string name="reservation_to_document_intent">document</string>
+
+</resources>
