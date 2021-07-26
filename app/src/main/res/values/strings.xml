@@ -5,11 +5,15 @@
     <string name="groom">신랑</string>
     <string name="bride">신부</string>
 
+    <string name="datetime_format">yyyy-MM-dd HH:mm:ss</string>
+    <string name="date_format">yyyy년 M월 d일</string>
+
     <string name="stub_groom">진윤섭</string>
     <string name="stub_bride">김은희</string>
 
     <string name="stub_datetime">2021–07–14 17:53:09</string>
     <string name="phone_regex">^\\d{3}-\\d{3,4}-\\d{4}$</string>
+    <string name="data_retrieved">데이터를 가져왔습니다.</string>
 
     <!-- 메인 화면 -->
     <string name="consulting">상담</string>
@@ -27,7 +31,13 @@
     <string name="main_to_reservation_intent">reservations</string>
 
 
-    <!-- 검색창 -->
+    <!-- 새 예약 -->
+    <string name="new_reservation_desc">신랑, 신부의 성함을 입력해주세요.</string>
+    <string name="new_groom_name">신랑 이름</string>
+    <string name="new_bride_name">신부 이름</string>
+    <string name="new_reservation_submit">예약 생성</string>
+
+    <!-- 검색 -->
     <string name="search_input">신랑/신부 전화번호</string>
     <string name="search_submit">검색</string>
     <string name="search_description">신랑 혹은 신부님의 전화번호를 입력해주세요.</string>
@@ -46,5 +56,10 @@
     <string name="modified_date_time">수정 시간: </string>
 
     <string name="reservation_to_document_intent">document</string>
+
+
+    <!-- 문서 화면 -->
+    <string name="document_export">내보내기</string>
+    <string name="document_send_to_db">업로드</string>
 
 </resources>

@@ -13,6 +13,9 @@
         <variable
                 name="position"
                 type="int" />
+        <variable
+                name="document_key"
+                type="String" />
     </data>
 
     <LinearLayout
@@ -23,12 +26,12 @@
             android:clickable="true"
             android:focusable="true"
             android:background="?attr/selectableItemBackground"
-            android:onClick="@{()->viewModel.selectDocument(position)}">
+            android:onClick="@{()->viewModel.selectDocument(document_key)}">
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.reservation.docs[position].name}"
+                android:text="@{viewModel.docs[position].second.name}"
                 android:textSize="30sp"
                 android:textColor="@color/black" />
 
@@ -52,7 +55,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.reservation.docs[position].createdDateTime}" />
+                        android:text="@{viewModel.docs[position].second.createdDateTime}" />
 
             </LinearLayout>
 
@@ -70,7 +73,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.reservation.docs[position].modifiedDateTime}" />
+                        android:text="@{viewModel.docs[position].second.modifiedDateTime}" />
 
             </LinearLayout>
 

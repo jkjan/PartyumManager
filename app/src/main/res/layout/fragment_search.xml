@@ -13,7 +13,8 @@
     <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
 
         <TextView
                 android:id="@+id/tv_input_number_desc"
@@ -23,14 +24,13 @@
                 android:textColor="@color/black"
                 android:layout_marginTop="30dp"
                 android:layout_marginHorizontal="30dp"
-                android:layout_gravity="center" />
+                />
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/search_not_found"
                 android:textColor="@color/red"
-                android:layout_gravity="center"
                 android:id="@+id/tv_search_not_found"
                 android:visibility="gone"
                 />
@@ -44,10 +44,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_gravity="center"
+                android:gravity="center"
                 android:layout_marginBottom="15dp">
 
             <EditText
+                    android:listener="@{&quot;&quot;}"
                     android:id="@+id/et_input_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -63,6 +64,38 @@
                     android:text="@string/search_submit"
                     android:onClick="@{()->mainVM.onClick(Command.NUMBER_SUBMITTED)}" />
         </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/ll_reservations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:gravity="center">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reservation_select_desc"
+                    />
+
+            <androidx.core.widget.NestedScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    android:fillViewport="true"
+                    >
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_reservation_select"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

@@ -4,15 +4,18 @@
 
     <data>
 
-        <import type="com.partyum.partyummanager.reservation.ReservationViewModel" />
+        <import type="com.partyum.partyummanager.main.MainViewModel" />
 
         <variable
                 name="viewModel"
-                type="ReservationViewModel" />
+                type="MainViewModel" />
 
         <variable
                 name="position"
                 type="int" />
+        <variable
+                name="reservation_key"
+                type="String" />
     </data>
 
         <LinearLayout
@@ -20,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="?attr/selectableItemBackground"
-                android:onClick="@{()->viewModel.selectReservation(position)}"
+                android:onClick="@{()->viewModel.selectReservation(reservation_key)}"
                 android:gravity="center"
                 >
 
@@ -31,7 +34,7 @@
             <TextView
                     style="@style/reservation_item_name"
                     android:id="@+id/tv_reservation_item_groom_name"
-                    android:text="@{viewModel.reservations[position].groomName}"
+                    android:text="@{viewModel.reservations[position].second.groomName}"
                     />
 
             <View
@@ -45,7 +48,7 @@
             <TextView
                     style="@style/reservation_item_name"
                     android:id="@+id/tv_reservation_item_bride_name"
-                    android:text="@{viewModel.reservations[position].brideName}"/>
+                    android:text="@{viewModel.reservations[position].second.brideName}"/>
 
 
         </LinearLayout>

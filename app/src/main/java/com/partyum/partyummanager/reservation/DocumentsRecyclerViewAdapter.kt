@@ -10,8 +10,8 @@ class DocumentsRecyclerViewAdapter(private val viewModel: ReservationViewModel) 
 
     override fun getItemCount(): Int {
         // 문서 수 반환
-        return if (viewModel.reservation.value?.docs != null) {
-            viewModel.reservation.value!!.docs.size
+        return if (viewModel.docs.value != null) {
+            viewModel.docs.value!!.size
         } else {
             0
         }
@@ -21,5 +21,6 @@ class DocumentsRecyclerViewAdapter(private val viewModel: ReservationViewModel) 
         // 뷰 바인딩, 위치값 넣어주기
         binding.viewModel = viewModel
         binding.position = position
+        binding.documentKey = viewModel.docs.value!![position].first
     }
 }

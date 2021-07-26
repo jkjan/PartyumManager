@@ -6,15 +6,17 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.partyum.partyummanager.R
 import com.partyum.partyummanager.base.BaseFragment
-import com.partyum.partyummanager.databinding.SearchFragmentBinding
+import com.partyum.partyummanager.databinding.FragmentSearchBinding
+import com.partyum.partyummanager.model.PhoneFormattingTextWatcher
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class SearchFragment : BaseFragment<SearchFragmentBinding>() {
+class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override val viewModel: MainViewModel by sharedViewModel()
     override val layoutResourceId: Int
-        get() = R.layout.search_fragment
+        get() = R.layout.fragment_search
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,9 +27,6 @@ class SearchFragment : BaseFragment<SearchFragmentBinding>() {
         // 뷰 바인딩
         binding.mainVM = viewModel
 
-        // 번호 포맷에 맞춰 자동으로 하이픈 넣어주는 리스너 추가
-        binding.etInputNumber.addTextChangedListener(PhoneNumberFormattingTextWatcher())
-
         return view
     }
 
@@ -36,22 +35,22 @@ class SearchFragment : BaseFragment<SearchFragmentBinding>() {
 
         viewModel.command.observe(this, {
             // 사용자가 검색 버튼을 클릭
-            when {
-                it == Command.NUMBER_SUBMITTED -> {
-                    viewModel.getReservations(getString(R.string.phone_regex).toRegex(), binding.etInputNumber.text.toString())
+            when (it) {
+                Command.NUMBER_SUBMITTED -> {
+                    search()
                 }
+                else -> {}
             }
         })
 
-        binding.etInputNumber.setOnKeyListener {_, keyCode, event ->
-            // 사용자가 엔터를 누름
-            if ((event.action == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                viewModel.getReservations(getString(R.string.phone_regex).toRegex(), binding.etInputNumber.text.toString())
-                true
-            }
-            else
-                false
-        }
+//        binding.etInputNumber.setOnKeyListener { _, keyCode, event ->
+//            // 사용자가 엔터를 누름
+//            if ((event.action == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+//                search()
+//                true
+//            } else
+//                false
+//        }
 
         viewModel.notFoundCount.observe(this, {
             // 전화번호를 신랑, 신부 모두에서 찾아도 없음
@@ -72,11 +71,38 @@ class SearchFragment : BaseFragment<SearchFragmentBinding>() {
                 View.GONE
             }
         })
+
+        viewModel.reservations.observe(this, {
+            if (it.isNotEmpty()) {
+                // 예약이 검색됨
+                binding.llReservations.visibility = View.VISIBLE
+                binding.rvReservationSelect.setHasFixedSize(true)
+                binding.rvReservationSelect.layoutManager = LinearLayoutManager(this.context)
+                binding.rvReservationSelect.adapter = ReservationRecyclerViewAdapter(viewModel)
+            }
+        })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun init() {
+        // 프래그먼트 정보 초기화
+        binding.llReservations.visibility = View.GONE
+        viewModel.reservations.value = listOf()
         viewModel.notFoundCount.value = 0
         viewModel.invalidNumber.value = false
+    }
+
+    fun search() {
+        init()
+
+        viewModel.getReservations(
+            getString(R.string.phone_regex).toRegex(),
+            binding.etInputNumber.text.toString()
+        )
+            .observe(this, {
+                if (binding.rvReservationSelect.adapter != null) {
+                    binding.rvReservationSelect.adapter!!.notifyDataSetChanged()
+                    viewModel.showSnackBar(R.string.data_retrieved)
+                }
+            })
     }
 }

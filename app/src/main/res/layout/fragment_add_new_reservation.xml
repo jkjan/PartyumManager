@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="com.partyum.partyummanager.main.MainViewModel"/>
+        <import type="com.partyum.partyummanager.main.Command"/>
+        <variable
+                name="viewModel"
+                type="MainViewModel" />
+    </data>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="30dp"
+            android:gravity="center">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_reservation_desc"
+                android:textSize="20sp"
+                android:layout_marginBottom="30dp"
+                android:textColor="@color/black"
+                />
+
+        <EditText
+                android:id="@+id/et_new_groom_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_groom_name"
+                android:autofillHints="@string/new_groom_name"
+                android:inputType="text"
+               />
+
+        <EditText
+                android:id="@+id/et_new_bride_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_bride_name"
+                android:autofillHints="@string/new_bride_name"
+                android:inputType="text"
+
+                />
+
+        <Button
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_reservation_submit"
+                android:onClick="@{()->viewModel.onClick(Command.NEW_RESERVATION_SUBMITTED)}"
+                />
+
+    </LinearLayout>
+
+</layout>

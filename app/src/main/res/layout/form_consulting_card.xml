@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+    <data>
+        <import type="com.partyum.partyummanager.document.DocumentViewModel"/>
+        <variable
+                name="today"
+                type="String"
+                />
+        <variable
+                name="viewModel"
+                type="DocumentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:id="@+id/test2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@android:color/white"
+                app:layout_constraintDimensionRatio="H,1:1.414"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+            <ImageView
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="250dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/iv_partyum_title"
+                    />
+
+            <TextView
+                    style="@style/csc_text"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="20dp"
+                    android:text="고객상담카드" />
+
+            <TextView
+                    style="@style/csc_text"
+                    android:textStyle="bold"
+                    android:text="◆ 어떤 경로로 방문하셨나요? (해당하는 곳에 체크해주세요)" />
+
+
+            <TextView
+                    android:id="@+id/csc_choice_internet"
+                    style="@style/csc_text"
+                    android:onClick="@{(v)->viewModel.selectString(v)}"
+                    android:text="· 인터넷 광고 (네이버, 다음, 카페&amp;블로그)" />
+
+            <TextView
+                    android:id="@+id/csc_choice_introduction"
+                    style="@style/csc_text"
+                    android:onClick="@{(v)->viewModel.selectString(v)}"
+                    android:text="· 소개: (친지, 친구, 컨설팅업체)" />
+
+            <TextView
+                    android:id="@+id/csc_choice_phone"
+                    android:onClick="@{(v)->viewModel.selectString(v)}"
+                    style="@style/csc_text"
+                    android:text="· 전화상담 후 방문" />
+
+            <TextView
+                    android:id="@+id/csc_choice_etc"
+                    android:onClick="@{(v)->viewModel.selectString(v)}"
+                    style="@style/csc_text"
+                    android:text="· 기타"
+                    android:layout_marginBottom="20dp"
+                    />
+
+
+            <TextView
+                    style="@style/csc_text"
+                    android:textStyle="bold"
+                    android:text="◆ 정하신 예식 날짜와 시간은 언제인가요?" />
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp"
+                    >
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text="20" />
+
+                <EditText
+                        android:id="@+id/csc_year"
+                        style="@style/csc_text"
+                        />
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text="년 " />
+
+                <EditText
+                        android:id="@+id/csc_month"
+                        style="@style/csc_text" />
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text="월 " />
+
+                <EditText
+                        android:id="@+id/csc_day"
+                        style="@style/csc_text" />
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text="일 " />
+
+                <EditText
+                        android:id="@+id/csc_date"
+                        style="@style/csc_text" />
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text="요일 " />
+
+                <EditText
+                        android:id="@+id/csc_time"
+                        style="@style/csc_text" />
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text="시" />
+
+            </LinearLayout>
+
+            <TextView
+                    style="@style/csc_text"
+                    android:textStyle="bold"
+                    android:text="◆ 성함과 연락처를 적어주세요." />
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text="신랑님: " />
+
+                <EditText
+                        android:id="@+id/csc_groom_name"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        style="@style/csc_text"/>
+
+                <View
+                        android:layout_width="20dp"
+                        android:layout_height="0dp"/>
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text="TEL: " />
+
+                <EditText
+                        android:listener="@{&quot;&quot;}"
+                        android:id="@+id/csc_groom_number"
+                        android:layout_width="120dp"
+                        android:inputType="phone"
+                        android:maxLength="13"
+                        android:layout_height="wrap_content"
+                        style="@style/csc_text"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp"
+                    >
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text="신부님: " />
+
+                <EditText
+                        android:id="@+id/csc_bride_name"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        style="@style/csc_text"/>
+
+                <View
+                        android:layout_width="20dp"
+                        android:layout_height="0dp"/>
+                <TextView
+                        style="@style/csc_text"
+                        android:text="TEL: " />
+
+                <EditText
+                        android:listener="@{&quot;&quot;}"
+                        android:onClick="@{(v)->viewModel.declareIsPhoneNumber(v)}"
+                        android:id="@+id/csc_bride_number"
+                        android:inputType="phone"
+                        android:maxLength="13"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        style="@style/csc_text"/>
+
+            </LinearLayout>
+
+            <TextView
+                    style="@style/csc_text"
+                    android:textStyle="bold"
+                    android:text="◆ 양가 하객 예상은 몇 분이신가요?" />
+
+            <LinearLayout
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginHorizontal="200dp">
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            style="@style/csc_text"
+                            android:text="신랑님: " />
+
+                    <EditText
+                            android:id="@+id/csc_groom_estimated"
+                            style="@style/csc_text" />
+
+                    <TextView
+                            style="@style/csc_text"
+                            android:text="명" />
+
+                </LinearLayout>
+
+                <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                <LinearLayout
+                        android:gravity="end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            style="@style/csc_text"
+                            android:text="신부님: " />
+
+                    <EditText
+
+                            android:id="@+id/csc_bride_estimated"
+                            style="@style/csc_text" />
+
+                    <TextView
+                            style="@style/csc_text"
+                            android:text="명" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                    style="@style/csc_text"
+                    android:textStyle="bold"
+                    android:text="◆ 양가의 손님 위치는 어디서 오시나요?" />
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text="신랑님: " />
+
+                <EditText
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        style="@style/csc_text"/>
+
+                <View
+                        android:layout_width="20dp"
+                        android:layout_height="0dp"/>
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text="신부님: " />
+
+                <EditText
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        style="@style/csc_text"/>
+
+            </LinearLayout>
+
+            <TextView
+                    style="@style/csc_text"
+                    android:textStyle="bold"
+                    android:text="◆ 방문하셨거나, 방문예정 예식장소가 있으신가요?" />
+
+            <TextView
+                    style="@style/csc_text"
+                    android:textStyle="bold"
+                    android:text="· 있으시면 어느 곳이랑 비교하시는지 기재해주세요." />
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp"
+                    >
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text="(" />
+
+                <EditText
+
+                        android:id="@+id/csc_comparing"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        style="@style/csc_text"/>
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text=")" />
+
+            </LinearLayout>
+
+
+            <TextView
+                    style="@style/csc_text"
+                    android:textStyle="bold"
+                    android:text="◆ 웨딩홀 결정에 가장 중요한 사항이 무엇인가요?" />
+
+            <TextView
+                    style="@style/csc_text"
+                    android:textStyle="bold"
+                    android:text="· 해당되는 곳을 터치해주세요." />
+
+            <LinearLayout
+                    style="@style/csc_text"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp"
+                    >
+
+                <TextView
+                        android:id="@+id/csc_choice_food"
+                        android:onClick="@{(v)->viewModel.selectString(v)}"
+                        style="@style/csc_text"
+                        android:text="음식" />
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text=" / " />
+
+                <TextView
+                        android:onClick="@{(v)->viewModel.selectString(v)}"
+                        android:id="@+id/csc_choice_traffic"
+                        style="@style/csc_text"
+                        android:text="교통" />
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text=" / " />
+
+                <TextView
+                        android:onClick="@{(v)->viewModel.selectString(v)}"
+                        android:id="@+id/csc_choice_facility"
+                        style="@style/csc_text"
+                        android:text="시설" />
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text=" / " />
+
+                <TextView
+                        android:onClick="@{(v)->viewModel.selectString(v)}"
+                        android:id="@+id/csc_choice_location"
+                        style="@style/csc_text"
+                        android:text="위치" />
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text=" / " />
+
+                <TextView
+                        android:onClick="@{(v)->viewModel.selectString(v)}"
+                        android:id="@+id/csc_choice_parking"
+                        style="@style/csc_text"
+                        android:text="주차시설" />
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text=" / " />
+
+                <TextView
+                        android:onClick="@{(v)->viewModel.selectString(v)}"
+                        android:id="@+id/csc_choice_time"
+                        style="@style/csc_text"
+                        android:text="여유로운 예식" />
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text=" / " />
+
+                <TextView
+                        android:onClick="@{(v)->viewModel.selectString(v)}"
+                        android:id="@+id/csc_choice_price"
+                        style="@style/csc_text"
+                        android:text="가격" />
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text=" / " />
+
+                <TextView
+                        android:id="@+id/csc_choice_package"
+                        android:onClick="@{(v)->viewModel.selectString(v)}"
+                        style="@style/csc_text"
+                        android:text="웨딩상품 패키지" />
+
+            </LinearLayout>
+
+            <TextView
+                    style="@style/csc_text"
+                    android:text="MEMO" />
+
+            <EditText
+                    android:id="@+id/csc_memo"
+                    android:layout_marginHorizontal="100dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    style="@style/csc_text"
+                    android:layout_marginBottom="20dp"
+                    />
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text="방문일자: " />
+
+                <TextView
+                        android:id="@+id/tv_csc_visit_date"
+                        style="@style/csc_text"
+                        android:text="@{today}"
+                        />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+
