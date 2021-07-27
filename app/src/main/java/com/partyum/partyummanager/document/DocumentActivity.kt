@@ -95,13 +95,16 @@ class DocumentActivity : BaseActivity<ActivityDocumentBinding>() {
                             )
 
                             // 공유 인텐트 생성
-                            val shareIntent = Intent(Intent.ACTION_SEND)
+                            val shareIntent = Intent(Intent.ACTION_VIEW)
 
                             // 인텐트에 URI 읽기 권한 부여
-                            shareIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                            shareIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
 
                             // 인텐트에 공유할 데이터와 타입 설정
                             shareIntent.setDataAndType(contentUri, "application/pdf")
+//                            shareIntent.type = "application/pdf"
+
+//                            shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri)
 
                             // 공유 액티비티 시작
                             startActivity(Intent.createChooser(shareIntent, "PDF 공유"))

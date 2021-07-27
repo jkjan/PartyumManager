@@ -50,7 +50,6 @@
                     android:textStyle="bold"
                     android:text="◆ 어떤 경로로 방문하셨나요? (해당하는 곳에 체크해주세요)" />
 
-
             <TextView
                     android:id="@+id/csc_choice_internet"
                     style="@style/csc_text"
@@ -279,6 +278,7 @@
                         android:text="신랑님: " />
 
                 <EditText
+                        android:id="@+id/csc_groom_from"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         style="@style/csc_text"/>
@@ -292,6 +292,7 @@
                         android:text="신부님: " />
 
                 <EditText
+                        android:id="@+id/csc_bride_from"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         style="@style/csc_text"/>
