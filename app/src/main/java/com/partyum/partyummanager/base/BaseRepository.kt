@@ -5,11 +5,5 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 abstract class BaseRepository {
-    lateinit var db: FirebaseDatabase
-
-    fun initRepository() {
-        // DB 연결
-        if (!this::db.isInitialized)
-            db = Firebase.database
-    }
+    var db: FirebaseDatabase = Firebase.database
 }

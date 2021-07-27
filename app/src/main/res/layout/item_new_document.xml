@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="com.partyum.partyummanager.reservation.ReservationViewModel"/>
+        <import type="com.partyum.partyummanager.reservation.Command"/>
+        <variable
+                name="viewModel"
+                type="ReservationViewModel" />
+        <variable
+                name="name"
+                type="String" />
+        <variable
+                name="type"
+                type="String" />
+    </data>
+
+    <Button
+            android:text="@{name}"
+            android:onClick="@{()->viewModel.newDocumentSelected(name, type)}"
+            android:background="?attr/selectableItemBackground"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_height="wrap_content"/>
+</layout>

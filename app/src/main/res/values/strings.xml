@@ -7,6 +7,7 @@
 
     <string name="datetime_format">yyyy-MM-dd HH:mm:ss</string>
     <string name="date_format">yyyy년 M월 d일</string>
+    <string name="date_format_for_file">yyyy-MM-dd</string>
 
     <string name="stub_groom">진윤섭</string>
     <string name="stub_bride">김은희</string>
@@ -34,7 +35,9 @@
     <!-- 새 예약 -->
     <string name="new_reservation_desc">신랑, 신부의 성함을 입력해주세요.</string>
     <string name="new_groom_name">신랑 이름</string>
+    <string name="new_groom_number">신랑 번호</string>
     <string name="new_bride_name">신부 이름</string>
+    <string name="new_bride_number">신부 번호</string>
     <string name="new_reservation_submit">예약 생성</string>
 
     <!-- 검색 -->
@@ -49,6 +52,15 @@
     <dimen name="reservation_item_name_size">20sp</dimen>
     <dimen name="reservation_item_pos_size">14sp</dimen>
     <string name="reservation_select_desc">예약건을 선택해주세요.</string>
+    <string name="document_to_add_select_desc">새로 만들 문서를 선택해주세요.</string>
+
+    <string-array name="document_templates">
+        <item>상담카드|CSC</item>
+        <item>예식 안내서|EST</item>
+        <item>약관 안내|TOS</item>
+        <item>계약서|CTR</item>
+        <item>계산서|STM</item>
+    </string-array>
 
     <string name="print_all">전체 출력</string>
     <string name="add_docu">문서 추가</string>

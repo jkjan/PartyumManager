@@ -6,6 +6,7 @@
     <data>
 
         <import type="com.partyum.partyummanager.reservation.ReservationViewModel" />
+        <import type="com.partyum.partyummanager.reservation.Command"/>
 
         <variable
                 name="viewModel"
@@ -72,6 +73,7 @@
                             android:text="@string/print_all" />
 
                     <Button
+                            android:onClick="@{()->viewModel.onClick(Command.ADD_NEW_DOCUMENT)}"
                             style="@style/reservation_mid_buttons"
                             android:text="@string/add_docu" />
 

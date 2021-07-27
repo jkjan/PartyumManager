@@ -19,6 +19,17 @@ abstract class BaseFragment <T: ViewDataBinding> : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, layoutResourceId, container, false)
+
+        super.onCreateView(inflater, container, savedInstanceState)
+        bindData()
+        setListeners()
+
         return binding.root
     }
+
+    // 데이터바인딩
+    abstract fun bindData()
+
+    // 리스너 달기
+    abstract fun setListeners()
 }

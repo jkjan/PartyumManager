@@ -18,21 +18,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override val layoutResourceId: Int
         get() = R.layout.fragment_search
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
-
+    override fun bindData() {
         // 뷰 바인딩
         binding.mainVM = viewModel
-
-        return view
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun setListeners() {
         viewModel.command.observe(this, {
             // 사용자가 검색 버튼을 클릭
             when (it) {

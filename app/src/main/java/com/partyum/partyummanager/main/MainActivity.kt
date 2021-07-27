@@ -13,7 +13,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val layoutResourceId: Int
         get() = R.layout.activity_main
     private var searchFragment: SearchFragment? = null
-    private var addNewReservationFragment: AddNewReservationFragment? = null
+    private var newReservationFragment: NewReservationFragment? = null
 
     override fun bindData() {
         // 뷰 바인딩
@@ -26,14 +26,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             when (it) {
                 Command.NEW_RESERVATION -> {
                     viewModel.initNewReservation()
-                    addNewReservationFragment = AddNewReservationFragment()
-                    addNewReservationFragment!!.show(supportFragmentManager, addNewReservationFragment!!.tag)
+                    newReservationFragment = NewReservationFragment()
+                    newReservationFragment!!.show(supportFragmentManager, newReservationFragment!!.tag)
 
+                    // 새 예약 추가되고 얻은 키
                     viewModel.reservationKey.observe(this, { key ->
                         if (key != null) {
-                            if (addNewReservationFragment != null) {
-                                addNewReservationFragment!!.dismiss()
-                                addNewReservationFragment = null
+                            if (newReservationFragment != null) {
+                                newReservationFragment!!.dismiss()
+                                newReservationFragment = null
                             }
                             goToReservationActivity(key)
                         }
@@ -45,6 +46,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     searchFragment = SearchFragment()
                     searchFragment!!.show(supportFragmentManager, searchFragment!!.tag)
 
+                    // 검색 결과에서 선택된 예약의 키
                     viewModel.reservationKey.observe(this, { key ->
                         if (key != null) {
                             if (searchFragment != null) {

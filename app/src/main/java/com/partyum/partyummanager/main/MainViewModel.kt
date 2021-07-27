@@ -5,8 +5,9 @@ import com.partyum.partyummanager.base.BaseViewModel
 import com.partyum.partyummanager.dao.Info
 import com.partyum.partyummanager.dao.Reservation
 import com.partyum.partyummanager.model.MainModel
+import com.partyum.partyummanager.repository.ReservationRepository
 
-class MainViewModel(private val mainModel: MainModel, private val mainRepository: MainRepository): BaseViewModel() {
+class MainViewModel(private val reservationRepository: ReservationRepository): BaseViewModel() {
     // 메인 화면 리스너
     lateinit var command: MutableLiveData<Command>
 
@@ -30,25 +31,38 @@ class MainViewModel(private val mainModel: MainModel, private val mainRepository
         command = MutableLiveData(Command.NONE)
     }
 
+    // 액티비티로 커맨드 보내기
     fun onClick(command: Command) {
         this.command.value = command
     }
 
+    // 새 예약 추가 시 사용되는 변수 초기화
     fun initNewReservation() {
         reservationKey = MutableLiveData(null)
     }
 
-    fun createNewReservation(groomName: String, brideName: String, format: String) {
+    // 새 예약 생성
+    fun createNewReservation(groomName: String, groomNumber: String, brideName: String, brideNumber:String, format: String) {
         // 현재 시간을 문자열로 얻어옴
-        val now = mainModel.getNowToString(format)
+        val now = MainModel.getNowToString(format)
 
         // 새로운 예약 데이터
-        val newReservation = Reservation(Info(groomName=groomName, brideName=brideName, createdDateTime=now, modifiedDateTime=now))
+        val newReservation = Reservation(
+            Info(
+                groomName=groomName,
+                groomNumber=groomNumber,
+                brideName=brideName,
+                brideNumber=brideNumber,
+                createdDateTime=now,
+                modifiedDateTime=now
+            )
+        )
 
         // 새 예약 데이터를 DB에 추가
-        mainRepository.createNewReservation(newReservation, reservationKey)
+        reservationRepository.createNewReservation(newReservation, reservationKey)
     }
 
+    // 검색 시 사용되는 데이터 초기화
     fun initSearch() {
         reservations = MutableLiveData(listOf())
         reservationKey = MutableLiveData(null)
@@ -59,15 +73,16 @@ class MainViewModel(private val mainModel: MainModel, private val mainRepository
 
     // 전화번호 유효성을 체크하고, 유효할 시 DB에 검색
     fun getReservations(regex: Regex, phoneNumber: String): MutableLiveData<List<Pair<String, Info>>> {
-        if (!mainModel.isValidNumber(regex, phoneNumber)) {
+        if (!MainModel.isValidNumber(regex, phoneNumber)) {
             invalidNumber.value = true
         }
         else {
-            mainRepository.getReservations(phoneNumber, reservations, notFoundCount)
+            reservationRepository.getReservations(phoneNumber, reservations, notFoundCount)
         }
         return reservations
     }
 
+    // 예약 선택됨
     fun selectReservation(reservationKey: String) {
         this.reservationKey.value = reservationKey
     }

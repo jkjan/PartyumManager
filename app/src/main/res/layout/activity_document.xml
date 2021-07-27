@@ -4,7 +4,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.partyum.partyummanager.document.Command"/>
+
+        <import type="com.partyum.partyummanager.document.Command" />
+
         <variable
                 name="viewModel"
                 type="com.partyum.partyummanager.document.DocumentViewModel" />
@@ -19,8 +21,7 @@
                 android:layout_margin="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
             <TextView
                     android:layout_width="wrap_content"
@@ -39,7 +40,8 @@
                     android:text="@string/document_export"
                     android:textColor="@color/black"
                     android:layout_gravity="end"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:onClick="@{()->viewModel.onClick(Command.EXPORT)}"
+                    android:background="?attr/selectableItemBackground" />
 
             <Button
                     android:layout_width="wrap_content"
@@ -47,8 +49,10 @@
                     android:text="@string/document_send_to_db"
                     android:layout_gravity="end"
                     android:textColor="@color/black"
-                    android:onClick="@{()->viewModel.saveDocument(Command.SAVE_TO_FIREBASE)}"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:onClick="@{()->viewModel.onClick(Command.SAVE_TO_FIREBASE)}"
+                    android:background="?attr/selectableItemBackground"
+
+                    />
 
         </LinearLayout>
 
@@ -63,9 +67,7 @@
                     android:id="@+id/document_form"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:today="@{viewModel.getNowToString()}"
-                    app:viewModel="@{viewModel}"
-                    />
+                    app:viewModel="@{viewModel}" />
 
         </LinearLayout>
 

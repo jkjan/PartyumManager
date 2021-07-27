@@ -11,7 +11,7 @@ data class Document(
     val type: String = "",
 
     // xml 레이아웃
-    val xml: String = "",
+    val elem: HashMap<String, String> = hashMapOf(),
 
     // 생성일
     val createdDateTime: String = "",

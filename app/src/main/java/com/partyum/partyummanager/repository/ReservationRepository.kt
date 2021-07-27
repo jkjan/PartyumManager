@@ -1,4 +1,4 @@
-package com.partyum.partyummanager.main
+package com.partyum.partyummanager.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -7,10 +7,35 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.partyum.partyummanager.base.BaseRepository
+import com.partyum.partyummanager.dao.Document
 import com.partyum.partyummanager.dao.Info
 import com.partyum.partyummanager.dao.Reservation
 
-class MainRepository : BaseRepository() {
+class ReservationRepository : BaseRepository() {
+    fun getReservation(
+        key: String,
+        reservation: MutableLiveData<Info>
+    ) {
+
+        Log.i("firebase-sync", "${key}의 변경을 감지합니다.")
+
+        val query = db.getReference("reservations").child(key).child("info")
+
+        query.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                Log.i("firebase-sync", "예약 키 ${key}의 데이터가 변경되었습니다.")
+                Log.i("firebase-sync", "got value ${snapshot.value}")
+                if (snapshot.value != null) {
+                    reservation.postValue(snapshot.getValue<Info>())
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.i("firebase-sync", "변경사항을 가져오지 못하였습니다.")
+            }
+        })
+    }
+
     private fun getReservationsByNumber(
         phoneNumber: String,
         numberOwner: String,
@@ -66,7 +91,6 @@ class MainRepository : BaseRepository() {
         reservations: MutableLiveData<List<Pair<String, Info>>>,
         notFoundCount: MutableLiveData<Int>
     ) {
-        initRepository()
 
         // 번호를 신랑에서 한 번, 신부에서 한 번 검색
         getReservationsByNumber(phoneNumber, "groom", reservations, notFoundCount)
@@ -74,7 +98,6 @@ class MainRepository : BaseRepository() {
     }
 
     fun createNewReservation(newReservation: Reservation, key: MutableLiveData<String>) {
-        initRepository()
 
         val dbRef = db.getReference("reservations")
 
