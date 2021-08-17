@@ -4,6 +4,7 @@ import android.content.Intent
 import android.util.Log
 import com.partyum.partyummanager.R
 import com.partyum.partyummanager.base.BaseActivity
+import com.partyum.partyummanager.base.Command
 import com.partyum.partyummanager.databinding.ActivityMainBinding
 import com.partyum.partyummanager.reservation.ReservationActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -41,7 +42,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     })
                 }
 
-                Command.SEARCH -> {
+                Command.SEARCH_RESERVATION -> {
                     viewModel.initSearch()
                     searchFragment = SearchFragment()
                     searchFragment!!.show(supportFragmentManager, searchFragment!!.tag)

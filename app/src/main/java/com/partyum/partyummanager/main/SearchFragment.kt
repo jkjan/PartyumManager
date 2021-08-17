@@ -1,16 +1,11 @@
 package com.partyum.partyummanager.main
 
-import android.os.Bundle
-import android.telephony.PhoneNumberFormattingTextWatcher
-import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.partyum.partyummanager.R
 import com.partyum.partyummanager.base.BaseFragment
+import com.partyum.partyummanager.base.Command
 import com.partyum.partyummanager.databinding.FragmentSearchBinding
-import com.partyum.partyummanager.model.PhoneFormattingTextWatcher
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>() {
@@ -43,16 +38,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 //                false
 //        }
 
-        viewModel.notFoundCount.observe(this, {
-            // 전화번호를 신랑, 신부 모두에서 찾아도 없음
-            binding.tvSearchNotFound.visibility = if (it >= 2) {
-                binding.tvSearchNotFound.text = getString(R.string.search_not_found)
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
-        })
-
         viewModel.invalidNumber.observe(this, {
             // 전화번호가 유효하지 않음
             binding.tvSearchNotFound.visibility = if (it) {
@@ -62,23 +47,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 View.GONE
             }
         })
-
-        viewModel.reservations.observe(this, {
-            if (it.isNotEmpty()) {
-                // 예약이 검색됨
-                binding.llReservations.visibility = View.VISIBLE
-                binding.rvReservationSelect.setHasFixedSize(true)
-                binding.rvReservationSelect.layoutManager = LinearLayoutManager(this.context)
-                binding.rvReservationSelect.adapter = ReservationRecyclerViewAdapter(viewModel)
-            }
-        })
     }
 
     private fun init() {
         // 프래그먼트 정보 초기화
         binding.llReservations.visibility = View.GONE
-        viewModel.reservations.value = listOf()
-        viewModel.notFoundCount.value = 0
         viewModel.invalidNumber.value = false
     }
 
@@ -86,13 +59,25 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         init()
 
         viewModel.getReservations(
-            getString(R.string.phone_regex).toRegex(),
             binding.etInputNumber.text.toString()
         )
             .observe(this, {
-                if (binding.rvReservationSelect.adapter != null) {
-                    binding.rvReservationSelect.adapter!!.notifyDataSetChanged()
-                    viewModel.showSnackBar(R.string.data_retrieved)
+                if (it != null) {
+                    if (it.isNotEmpty()) {
+                        if (binding.rvReservationSelect.adapter != null) {
+                            binding.rvReservationSelect.adapter!!.notifyDataSetChanged()
+                        }
+                        else {
+                            binding.llReservations.visibility = View.VISIBLE
+                            binding.rvReservationSelect.setHasFixedSize(true)
+                            binding.rvReservationSelect.layoutManager = LinearLayoutManager(this.context)
+                            binding.rvReservationSelect.adapter = ReservationRecyclerViewAdapter(viewModel)
+                        }
+                    }
+                    else {
+                        binding.tvSearchNotFound.text = getString(R.string.search_not_found)
+                        binding.tvSearchNotFound.visibility = View.VISIBLE
+                    }
                 }
             })
     }

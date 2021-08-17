@@ -7,26 +7,23 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.partyum.partyummanager.base.BaseRepository
-import com.partyum.partyummanager.dao.Document
-import com.partyum.partyummanager.dao.Info
-import com.partyum.partyummanager.dao.Reservation
+import com.partyum.partyummanager.dao.ReservationInfo
+import com.partyum.partyummanager.dto.ReservationEntry
 
 class ReservationRepository : BaseRepository() {
-    fun getReservation(
-        key: String,
-        reservation: MutableLiveData<Info>
+    fun getReservationInfo(
+        reservation: MutableLiveData<ReservationInfo>,
     ) {
+        Log.i("firebase-sync", "${reservationKey}의 변경을 감지합니다.")
 
-        Log.i("firebase-sync", "${key}의 변경을 감지합니다.")
-
-        val query = db.getReference("reservations").child(key).child("info")
+        val query = reservations.child(reservationKey).child("info")
 
         query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                Log.i("firebase-sync", "예약 키 ${key}의 데이터가 변경되었습니다.")
+                Log.i("firebase-sync", "예약 키 ${reservationKey}의 데이터가 변경되었습니다.")
                 Log.i("firebase-sync", "got value ${snapshot.value}")
                 if (snapshot.value != null) {
-                    reservation.postValue(snapshot.getValue<Info>())
+                    reservation.postValue(snapshot.getValue<ReservationInfo>())
                 }
             }
 
@@ -36,81 +33,62 @@ class ReservationRepository : BaseRepository() {
         })
     }
 
-    private fun getReservationsByNumber(
+    fun getReservationsByNumber(
         phoneNumber: String,
-        numberOwner: String,
-        reservations: MutableLiveData<List<Pair<String, Info>>>,
-        notFoundCount: MutableLiveData<Int>,
+        reservations: MutableLiveData<List<Pair<String, ReservationEntry>>>,
     ) {
-        val dbRef = db.getReference("reservations")
-
         // 신랑 혹은 신부에 따라 휴대폰 번호를 DB 에서 검색함
-        val query = dbRef.orderByChild("info/" + numberOwner + "Number").equalTo(phoneNumber)
+        val query = dbRef.getReference("reservations")
 
         query.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                Log.i("firebase-get", "$phoneNumber Got value ${dataSnapshot.value}")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val temp = arrayListOf<Pair<String, ReservationEntry>>()
 
-                // 검색된 데이터 있음
-                if (dataSnapshot.value != null) {
-                    var temp = arrayListOf<Pair<String, Info>>()
+                if (snapshot.exists()) {
+                    snapshot.children.forEach { child->
+                        val info = child.child("info").getValue<ReservationInfo>()
 
-                    // 찾은 데이터 중 null 값이 아닌 것들만 예약 리스트에 저장
-                    dataSnapshot.getValue<HashMap<String, Reservation?>>()?.forEach {
-                        if (it.value != null) {
-                            temp.add(Pair(it.key, it.value!!.info))
-                        }
-                    }
-
-                    // ViewModel 에서 온 예약 데이터에 저장
-                    if (reservations.value != null) {
-                        // 신부 검색일 경우 추가
-                        if (numberOwner == "bride") {
-                            temp = reservations.value!!.plus(temp) as ArrayList<Pair<String, Info>>
-                        }
-
-                        reservations.postValue(
-                            temp.sortedBy {
-                                it.second.modifiedDateTime
+                        if (info != null && (info.groomNumber == phoneNumber || info.brideNumber == phoneNumber)) {
+                            if (child.key != null) {
+                                temp.add(Pair(child.key!!, ReservationEntry(info.groomName, info.brideName, info.modifiedDateTime)))
                             }
-                        )
+                        }
                     }
-                } else {
-                    notFoundCount.value = notFoundCount.value?.plus(1)
+
+                    reservations.postValue(temp)
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.e("firebase-get", "Failed to get value from $phoneNumber")
             }
         })
     }
 
-    fun getReservations(
-        phoneNumber: String,
-        reservations: MutableLiveData<List<Pair<String, Info>>>,
-        notFoundCount: MutableLiveData<Int>
-    ) {
+    fun createNewReservationInfo(newReservationInfo: ReservationInfo, newReservationKey: MutableLiveData<String>?) {
+        val key =
+            (
+                if (newReservationKey != null)
+                    reservations.push().key
+                else
+                    reservationKey
+            ) ?: return
 
-        // 번호를 신랑에서 한 번, 신부에서 한 번 검색
-        getReservationsByNumber(phoneNumber, "groom", reservations, notFoundCount)
-        getReservationsByNumber(phoneNumber, "bride", reservations, notFoundCount)
-    }
-
-    fun createNewReservation(newReservation: Reservation, key: MutableLiveData<String>) {
-
-        val dbRef = db.getReference("reservations")
-
-        Log.i("main repository", "예약 추가: $newReservation")
-
-        val newReservationKey = dbRef.push().key
-
-        dbRef.child(newReservationKey!!).setValue(newReservation).addOnSuccessListener {
+        reservations.child(key).child("info").setValue(newReservationInfo).addOnSuccessListener {
             Log.i("firebase-push", "예약 데이터 추가에 성공했습니다.")
-            key.postValue(newReservationKey)
+            newReservationKey?.postValue(key)
 
         }.addOnFailureListener {
             Log.e("firebase-push", "예약 데이터 추가에 실패했습니다.")
+        }
+    }
+
+    fun deleteReservation() {
+        val dbRef = reservations.child(reservationKey)
+
+        dbRef.removeValue().addOnSuccessListener {
+            Log.i("firebase-delete", "예약 삭제에 성공했습니다.")
+        }.addOnFailureListener {
+            Log.e("firebase-delete", "예약 삭제에 실패했습니다.")
         }
     }
 }

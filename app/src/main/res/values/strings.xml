@@ -14,6 +14,7 @@
 
     <string name="stub_datetime">2021–07–14 17:53:09</string>
     <string name="phone_regex">^\\d{3}-\\d{3,4}-\\d{4}$</string>
+    <string name="datetime_regex">^(20[1–9][0-9])-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) ([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$</string>
     <string name="data_retrieved">데이터를 가져왔습니다.</string>
 
     <!-- 메인 화면 -->
@@ -33,12 +34,12 @@
 
 
     <!-- 새 예약 -->
-    <string name="new_reservation_desc">신랑, 신부의 성함을 입력해주세요.</string>
+    <string name="new_reservation_desc">수정/생성할 예약의 정보를 입력해주세요.</string>
     <string name="new_groom_name">신랑 이름</string>
     <string name="new_groom_number">신랑 번호</string>
     <string name="new_bride_name">신부 이름</string>
     <string name="new_bride_number">신부 번호</string>
-    <string name="new_reservation_submit">예약 생성</string>
+    <string name="new_reservation_submit">제출</string>
 
     <!-- 검색 -->
     <string name="search_input">신랑/신부 전화번호</string>
@@ -54,24 +55,39 @@
     <string name="reservation_select_desc">예약건을 선택해주세요.</string>
     <string name="document_to_add_select_desc">새로 만들 문서를 선택해주세요.</string>
 
-    <string-array name="document_templates">
-        <item>상담카드|CSC</item>
-        <item>예식 안내서|EST</item>
-        <item>약관 안내|TOS</item>
-        <item>계약서|CTR</item>
-        <item>계산서|STM</item>
+    <string-array name="document_types">
+        <item>상담카드|csc</item>
+        <item>예식 안내서|est</item>
+        <item>약관 안내|tos</item>
+        <item>계약서|ctr</item>
+        <item>계산서|stm</item>
     </string-array>
 
-    <string name="print_all">전체 출력</string>
     <string name="add_docu">문서 추가</string>
     <string name="created_date_time">생성 시간: </string>
     <string name="modified_date_time">수정 시간: </string>
-
+    <string name="document_add_warning">계약서는 한 장만 추가할 수 있습니다.</string>
     <string name="reservation_to_document_intent">document</string>
 
-
     <!-- 문서 화면 -->
+    <string name="document_history">수정 내역</string>
     <string name="document_export">내보내기</string>
     <string name="document_send_to_db">업로드</string>
+    <string name="delete">삭제</string>
+    <string name="modify">수정</string>
+
+    <!-- 삭제 프래그먼트 -->
+    <string name="delete_notice0">주의!</string>
+    <string name="delete_notice1">이 데이터는 파티움 데이터베이스에선 삭제되지 않습니다.</string>
+    <string name="delete_notice2">그러나 앱에서 삭제된 데이터는 복구할 수 없습니다.</string>
+    <string name="delete_notice3">삭제하시겠습니까?</string>
+    <string name="delete_yes">예</string>
+    <string name="delete_no">아니오</string>
+
+    <!-- 수정 프래그먼트 -->
+    <string name="modify_desc">수정할 정보를 입력해주세요.</string>
+    <string name="modify_invalid">잘못된 날짜 형식입니다.</string>
+    <string name="modify_form">예: 2018–10–07 17:09:14</string>
+    <string name="modify_submit">수정</string>
 
 </resources>

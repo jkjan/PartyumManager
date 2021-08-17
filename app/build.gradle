@@ -58,6 +58,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.google.firebase:firebase-storage-ktx'
 
     // xml 을 pdf 로 https://mvnrepository.com/artifact/com.itextpdf/itextpdf
     implementation group: 'com.itextpdf', name: 'itextpdf', version: '5.0.6'
@@ -65,4 +66,11 @@ dependencies {
     // https://mvnrepository.com/artifact/io.insert-koin/koin-android
     implementation group: 'io.insert-koin', name: 'koin-android', version: '3.1.2'
 
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+
+    // https://mvnrepository.com/artifact/com.squareup.picasso/picasso
+    implementation group: 'com.squareup.picasso', name: 'picasso', version: '2.5.2'
 }

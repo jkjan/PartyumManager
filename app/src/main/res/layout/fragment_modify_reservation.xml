@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools">
+        >
     <data>
-        <import type="com.partyum.partyummanager.main.MainViewModel"/>
-        <import type="com.partyum.partyummanager.main.Command"/>
+        <import type="com.partyum.partyummanager.base.BaseViewModel"/>
+        <import type="com.partyum.partyummanager.base.Command"/>
         <variable
                 name="viewModel"
-                type="MainViewModel" />
+                type="BaseViewModel" />
+        <variable
+                name="command"
+                type="Command" />
     </data>
 
     <LinearLayout
@@ -21,14 +24,33 @@
                 android:layout_height="wrap_content"
                 android:text="@string/new_reservation_desc"
                 android:textSize="20sp"
-                android:layout_marginBottom="30dp"
-                android:textColor="@color/black"
-                />
+                android:textColor="@color/black" />
 
-        <LinearLayout
+            <TextView
+                    android:id="@+id/invalid_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_invalid_number"
+                    android:textColor="@color/red"
+                    />
+            <TextView
+                    android:id="@+id/invalid_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/modify_invalid"
+                    android:textColor="@color/red"
+                    />
+
+        <View
+                android:layout_width="0dp"
+                android:layout_height="30dp" />
+
+        <GridLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                android:rowCount="3"
+                android:columnCount="2">
+
             <EditText
                     android:id="@+id/et_new_groom_name"
                     android:layout_width="wrap_content"
@@ -36,8 +58,7 @@
                     android:hint="@string/new_groom_name"
                     android:autofillHints="@string/new_groom_name"
                     android:inputType="text"
-                    android:layout_marginEnd="15dp"
-                    />
+                    android:layout_marginEnd="15dp" />
 
             <EditText
                     android:listener="@{&quot;&quot;}"
@@ -46,15 +67,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/new_groom_number"
                     android:autofillHints="@string/new_groom_number"
-                    android:inputType="phone"
-                    />
+                    android:inputType="phone" />
 
-        </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-            android:orientation="horizontal">
             <EditText
                     android:id="@+id/et_new_bride_name"
                     android:layout_width="wrap_content"
@@ -62,8 +76,8 @@
                     android:hint="@string/new_bride_name"
                     android:autofillHints="@string/new_bride_name"
                     android:inputType="text"
-                    android:layout_marginEnd="15dp"
-                    />
+                    android:layout_marginEnd="15dp" />
+
             <EditText
                     android:listener="@{&quot;&quot;}"
                     android:id="@+id/et_new_bride_number"
@@ -71,11 +85,19 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/new_bride_number"
                     android:autofillHints="@string/new_bride_number"
-                    android:inputType="phone"
-                    />
+                    android:inputType="phone" />
 
-        </LinearLayout>
+            <TextView
+                    android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/created_date_time"/>
 
+            <EditText
+                    android:id="@+id/et_created_date_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/modify_form"/>
+        </GridLayout>
 
         <Button
                 android:layout_marginTop="30dp"

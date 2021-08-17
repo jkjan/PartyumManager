@@ -13,7 +13,7 @@ import java.io.FileOutputStream
 
 class PdfModel {
     companion object {
-        fun viewToBitmap(view: View): Bitmap {
+        private fun viewToBitmap(view: View): Bitmap {
             val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bitmap)
             view.draw(canvas)
@@ -21,12 +21,12 @@ class PdfModel {
             return bitmap
         }
 
-        fun addBitmapToPdf(bitmap: Bitmap, savePath: String): File? {
+        private fun addBitmapToPdf(bitmap: Bitmap, savePath: String): File? {
             return try {
                 val stream = ByteArrayOutputStream()
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
                 val img: Image = Image.getInstance(stream.toByteArray())
-                img.setAlignment(Image.ALIGN_CENTER or Image.ALIGN_TOP)
+                img.alignment = Image.ALIGN_CENTER or Image.ALIGN_TOP
                 val document = Document(img)
                 val file = File(savePath)
 
@@ -44,10 +44,10 @@ class PdfModel {
                 document.add(img)
                 document.close()
 
-                Log.i("pdf model", "PDF 파일을 생성하였습니다. 경로: ${savePath}")
+                Log.i("pdf model", "PDF 파일을 생성하였습니다. 경로: $savePath")
                 file
             } catch (e: Exception) {
-                Log.e("pdf model", "PDF 이미지 추가에 실패하였습니다. 경로: ${savePath}")
+                Log.e("pdf model", "PDF 이미지 추가에 실패하였습니다. 경로: $savePath")
                 e.printStackTrace()
                 null
             }

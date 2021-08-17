@@ -1,27 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<layout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        >
     <data>
-        <import type="com.partyum.partyummanager.document.DocumentViewModel"/>
-        <variable
-                name="today"
-                type="String"
-                />
+
+        <import type="com.partyum.partyummanager.document.DocumentViewModel" />
+
         <variable
                 name="viewModel"
                 type="DocumentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/test"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         <LinearLayout
-                android:id="@+id/test2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="@android:color/white"
@@ -35,8 +29,7 @@
                     android:layout_marginBottom="20dp"
                     android:layout_width="250dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/iv_partyum_title"
-                    />
+                    android:src="@drawable/iv_partyum_title" />
 
             <TextView
                     style="@style/csc_text"
@@ -52,29 +45,32 @@
 
             <TextView
                     android:id="@+id/csc_choice_internet"
+                    android:tag="csc_choice_internet"
                     style="@style/csc_text"
-                    android:onClick="@{(v)->viewModel.selectString(v)}"
+                    android:onClick="@{(v)->viewModel.toggleString(v)}"
                     android:text="· 인터넷 광고 (네이버, 다음, 카페&amp;블로그)" />
 
             <TextView
                     android:id="@+id/csc_choice_introduction"
+                    android:tag="csc_choice_introduction"
                     style="@style/csc_text"
-                    android:onClick="@{(v)->viewModel.selectString(v)}"
+                    android:onClick="@{(v)->viewModel.toggleString(v)}"
                     android:text="· 소개: (친지, 친구, 컨설팅업체)" />
 
             <TextView
-                    android:id="@+id/csc_choice_phone"
-                    android:onClick="@{(v)->viewModel.selectString(v)}"
+                    android:id="@+id/csc_choice_kakao"
+                    android:tag="csc_choice_kakao"
+                    android:onClick="@{(v)->viewModel.toggleString(v)}"
                     style="@style/csc_text"
-                    android:text="· 전화상담 후 방문" />
+                    android:text="· 카카오톡 챗봇" />
 
             <TextView
                     android:id="@+id/csc_choice_etc"
-                    android:onClick="@{(v)->viewModel.selectString(v)}"
+                    android:tag="csc_choice_etc"
+                    android:onClick="@{(v)->viewModel.toggleString(v)}"
                     style="@style/csc_text"
                     android:text="· 기타"
-                    android:layout_marginBottom="20dp"
-                    />
+                    android:layout_marginBottom="20dp" />
 
 
             <TextView
@@ -86,8 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="20dp"
-                    >
+                    android:layout_marginBottom="20dp">
 
                 <TextView
                         style="@style/csc_text"
@@ -95,8 +90,9 @@
 
                 <EditText
                         android:id="@+id/csc_year"
-                        style="@style/csc_text"
-                        />
+                        android:tag="csc_year"
+                        android:autoSaver="@{viewModel}"
+                        style="@style/csc_text" />
 
                 <TextView
                         style="@style/csc_text"
@@ -104,6 +100,8 @@
 
                 <EditText
                         android:id="@+id/csc_month"
+                        android:tag="csc_month"
+                        android:autoSaver="@{viewModel}"
                         style="@style/csc_text" />
 
                 <TextView
@@ -112,6 +110,8 @@
 
                 <EditText
                         android:id="@+id/csc_day"
+                        android:tag="csc_day"
+                        android:autoSaver="@{viewModel}"
                         style="@style/csc_text" />
 
                 <TextView
@@ -120,6 +120,8 @@
 
                 <EditText
                         android:id="@+id/csc_date"
+                        android:tag="csc_date"
+                        android:autoSaver="@{viewModel}"
                         style="@style/csc_text" />
 
                 <TextView
@@ -128,6 +130,8 @@
 
                 <EditText
                         android:id="@+id/csc_time"
+                        android:tag="csc_time"
+                        android:autoSaver="@{viewModel}"
                         style="@style/csc_text" />
 
                 <TextView
@@ -144,8 +148,7 @@
             <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
 
                 <TextView
                         style="@style/csc_text"
@@ -155,11 +158,11 @@
                         android:text="@{viewModel.info.groomName}"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        style="@style/csc_text"/>
+                        style="@style/csc_text" />
 
                 <View
                         android:layout_width="20dp"
-                        android:layout_height="0dp"/>
+                        android:layout_height="0dp" />
 
                 <TextView
                         style="@style/csc_text"
@@ -169,7 +172,7 @@
                         android:text="@{viewModel.info.groomNumber}"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
-                        style="@style/csc_text"/>
+                        style="@style/csc_text" />
 
             </LinearLayout>
 
@@ -177,8 +180,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="20dp"
-                    >
+                    android:layout_marginBottom="20dp">
 
                 <TextView
                         style="@style/csc_text"
@@ -188,11 +190,12 @@
                         android:text="@{viewModel.info.brideName}"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        style="@style/csc_text"/>
+                        style="@style/csc_text" />
 
                 <View
                         android:layout_width="20dp"
-                        android:layout_height="0dp"/>
+                        android:layout_height="0dp" />
+
                 <TextView
                         style="@style/csc_text"
                         android:text="TEL: " />
@@ -201,7 +204,7 @@
                         android:text="@{viewModel.info.brideNumber}"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
-                        style="@style/csc_text"/>
+                        style="@style/csc_text" />
 
             </LinearLayout>
 
@@ -228,6 +231,8 @@
 
                     <EditText
                             android:id="@+id/csc_groom_estimated"
+                            android:tag="csc_groom_estimated"
+                            android:autoSaver="@{viewModel}"
                             style="@style/csc_text" />
 
                     <TextView
@@ -253,7 +258,10 @@
 
                     <EditText
                             android:id="@+id/csc_bride_estimated"
-                            style="@style/csc_text" />
+                            android:tag="csc_bride_estimated"
+                            android:autoSaver="@{viewModel}"
+                            style="@style/csc_text"
+                            android:layout_width="wrap_content" />
 
                     <TextView
                             style="@style/csc_text"
@@ -279,13 +287,15 @@
 
                 <EditText
                         android:id="@+id/csc_groom_from"
+                        android:tag="csc_groom_from"
+                        android:autoSaver="@{viewModel}"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        style="@style/csc_text"/>
+                        style="@style/csc_text" />
 
                 <View
                         android:layout_width="20dp"
-                        android:layout_height="0dp"/>
+                        android:layout_height="0dp" />
 
                 <TextView
                         style="@style/csc_text"
@@ -293,9 +303,11 @@
 
                 <EditText
                         android:id="@+id/csc_bride_from"
+                        android:tag="csc_bride_from"
+                        android:autoSaver="@{viewModel}"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        style="@style/csc_text"/>
+                        style="@style/csc_text" />
 
             </LinearLayout>
 
@@ -313,8 +325,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="20dp"
-                    >
+                    android:layout_marginBottom="20dp">
 
                 <TextView
                         style="@style/csc_text"
@@ -323,9 +334,11 @@
                 <EditText
 
                         android:id="@+id/csc_comparing"
+                        android:tag="csc_comparing"
+                        android:autoSaver="@{viewModel}"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
-                        style="@style/csc_text"/>
+                        style="@style/csc_text" />
 
                 <TextView
                         style="@style/csc_text"
@@ -347,12 +360,12 @@
             <LinearLayout
                     style="@style/csc_text"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="20dp"
-                    >
+                    android:layout_marginBottom="20dp">
 
                 <TextView
                         android:id="@+id/csc_choice_food"
-                        android:onClick="@{(v)->viewModel.selectString(v)}"
+                        android:tag="csc_choice_food"
+                        android:onClick="@{(v)->viewModel.toggleString(v)}"
                         style="@style/csc_text"
                         android:text="음식" />
 
@@ -361,8 +374,9 @@
                         android:text=" / " />
 
                 <TextView
-                        android:onClick="@{(v)->viewModel.selectString(v)}"
+                        android:onClick="@{(v)->viewModel.toggleString(v)}"
                         android:id="@+id/csc_choice_traffic"
+                        android:tag="csc_choice_traffic"
                         style="@style/csc_text"
                         android:text="교통" />
 
@@ -371,8 +385,9 @@
                         android:text=" / " />
 
                 <TextView
-                        android:onClick="@{(v)->viewModel.selectString(v)}"
+                        android:onClick="@{(v)->viewModel.toggleString(v)}"
                         android:id="@+id/csc_choice_facility"
+                        android:tag="csc_choice_facility"
                         style="@style/csc_text"
                         android:text="시설" />
 
@@ -381,8 +396,9 @@
                         android:text=" / " />
 
                 <TextView
-                        android:onClick="@{(v)->viewModel.selectString(v)}"
+                        android:onClick="@{(v)->viewModel.toggleString(v)}"
                         android:id="@+id/csc_choice_location"
+                        android:tag="csc_choice_location"
                         style="@style/csc_text"
                         android:text="위치" />
 
@@ -391,8 +407,9 @@
                         android:text=" / " />
 
                 <TextView
-                        android:onClick="@{(v)->viewModel.selectString(v)}"
+                        android:onClick="@{(v)->viewModel.toggleString(v)}"
                         android:id="@+id/csc_choice_parking"
+                        android:tag="csc_choice_parking"
                         style="@style/csc_text"
                         android:text="주차시설" />
 
@@ -401,8 +418,9 @@
                         android:text=" / " />
 
                 <TextView
-                        android:onClick="@{(v)->viewModel.selectString(v)}"
+                        android:onClick="@{(v)->viewModel.toggleString(v)}"
                         android:id="@+id/csc_choice_time"
+                        android:tag="csc_choice_time"
                         style="@style/csc_text"
                         android:text="여유로운 예식" />
 
@@ -411,8 +429,9 @@
                         android:text=" / " />
 
                 <TextView
-                        android:onClick="@{(v)->viewModel.selectString(v)}"
+                        android:onClick="@{(v)->viewModel.toggleString(v)}"
                         android:id="@+id/csc_choice_price"
+                        android:tag="csc_choice_price"
                         style="@style/csc_text"
                         android:text="가격" />
 
@@ -422,7 +441,8 @@
 
                 <TextView
                         android:id="@+id/csc_choice_package"
-                        android:onClick="@{(v)->viewModel.selectString(v)}"
+                        android:tag="csc_choice_package"
+                        android:onClick="@{(v)->viewModel.toggleString(v)}"
                         style="@style/csc_text"
                         android:text="웨딩상품 패키지" />
 
@@ -434,6 +454,8 @@
 
             <EditText
                     android:id="@+id/csc_memo"
+                    android:tag="csc_memo"
+                    android:autoSaver="@{viewModel}"
                     android:layout_marginHorizontal="100dp"
                     android:layout_width="match_parent"
                     android:layout_height="63dp"
@@ -455,9 +477,7 @@
                 <TextView
                         android:clickable="false"
                         android:id="@+id/tv_csc_visit_date"
-                        android:text="@{viewModel.document.createdDateTime}"
-                        style="@style/csc_text"
-                        />
+                        style="@style/csc_text" />
 
             </LinearLayout>
 

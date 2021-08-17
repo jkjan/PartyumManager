@@ -4,18 +4,11 @@ import java.io.Serializable
 
 // 문서
 data class Document(
-    // 이름
-    var name: String = "",
+    var info: DocumentInfo? = null,
 
-    // 유형
-    val type: String = "",
+    var editableValues: HashMap<String, String>? = null,
 
-    // xml 레이아웃
-    val elem: HashMap<String, String> = hashMapOf(),
+    var selectableValues: HashMap<String, Boolean>? = null,
 
-    // 생성일
-    val createdDateTime: String = "",
-
-    // 수정일
-    var modifiedDateTime: String = ""
-): Serializable
+    var imageURLs: HashMap<String, String>? = null,
+)

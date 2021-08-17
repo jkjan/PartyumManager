@@ -3,7 +3,7 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.partyum.partyummanager.main.Command" />
+        <import type="com.partyum.partyummanager.base.Command" />
 
         <variable
                 name="mainVM"
@@ -60,7 +60,7 @@
                 <Button
                         style="@style/main_button_theme"
                         android:text="@string/search"
-                        android:onClick="@{()->mainVM.onClick(Command.SEARCH)}" />
+                        android:onClick="@{()->mainVM.onClick(Command.SEARCH_RESERVATION)}" />
 
                 <ImageView
                         style="@style/main_button_divider"

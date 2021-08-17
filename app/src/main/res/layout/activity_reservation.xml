@@ -6,7 +6,7 @@
     <data>
 
         <import type="com.partyum.partyummanager.reservation.ReservationViewModel" />
-        <import type="com.partyum.partyummanager.reservation.Command"/>
+        <import type="com.partyum.partyummanager.base.Command"/>
 
         <variable
                 name="viewModel"
@@ -45,7 +45,7 @@
 
                     <TextView
                             style="@style/reservation_item_name"
-                            android:text="@{viewModel.reservation.groomName}" />
+                            android:text="@{viewModel.reservationInfo.groomName}" />
 
                     <View
                             android:layout_width="30dp"
@@ -57,25 +57,70 @@
 
                     <TextView
                             style="@style/reservation_item_name"
-                            android:text="@{viewModel.reservation.brideName}" />
+                            android:text="@{viewModel.reservationInfo.brideName}" />
 
                 </LinearLayout>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"/>
 
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:orientation="horizontal"
-                        android:gravity="end|center_vertical"
                         android:layout_height="wrap_content"
                         >
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-                    <Button
-                            style="@style/reservation_mid_buttons"
-                            android:text="@string/print_all" />
+                        <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
 
-                    <Button
-                            android:onClick="@{()->viewModel.onClick(Command.ADD_NEW_DOCUMENT)}"
-                            style="@style/reservation_mid_buttons"
-                            android:text="@string/add_docu" />
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/created_date_time"
+                                    android:layout_marginEnd="5dp"/>
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@{viewModel.reservationInfo.createdDateTime}"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="5dp"
+                                    android:text="@string/modified_date_time"/>
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@{viewModel.reservationInfo.modifiedDateTime}"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                    <ImageView
+                            android:id="@+id/iv_reservation_more"
+                            android:layout_gravity="end"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_baseline_more_vert_24"/>
 
                 </LinearLayout>
 

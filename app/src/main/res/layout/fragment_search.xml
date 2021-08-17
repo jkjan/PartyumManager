@@ -3,7 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.partyum.partyummanager.main.Command"/>
+        <import type="com.partyum.partyummanager.base.Command"/>
 
         <variable
                 name="mainVM"
@@ -14,7 +14,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:padding="30dp">
 
         <TextView
                 android:id="@+id/tv_input_number_desc"
@@ -22,8 +23,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/search_description"
                 android:textColor="@color/black"
-                android:layout_marginTop="30dp"
-                android:layout_marginHorizontal="30dp"
                 />
 
         <TextView

@@ -7,62 +7,102 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.partyum.partyummanager.base.BaseRepository
+import com.partyum.partyummanager.base.Strings
 import com.partyum.partyummanager.dao.Document
-import com.partyum.partyummanager.dao.Info
+import com.partyum.partyummanager.dao.DocumentInfo
+import com.partyum.partyummanager.dto.DocumentEntry
+import com.partyum.partyummanager.model.MainModel
 
 
 class DocumentRepository: BaseRepository() {
-    fun getDocumentFromDB(reservationKey: String, documentKey: String, document: MutableLiveData<Document>) {
-        val query = db.getReference("reservations").child(reservationKey).child("docs").child(documentKey)
+    private fun updateModifiedDateTime(now: String) {
+        val ref = reservations.child(reservationKey).child("docs").child(documentKey).child("info").child("modifiedDateTime")
+        val query = ref.setValue(now)
 
-        query.addValueEventListener(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                Log.i("firebase-get", "Got document value: ${snapshot.value}")
+        val listener = Listener(Strings.DB_PATCH.str, "생성일 수정", {}, {})
 
-                if (snapshot.value != null) {
-                    document.postValue(snapshot.getValue<Document>())
+        query.addOnSuccessListener(listener.SuccessListener())
+        query.addOnFailureListener(listener.FailureListener())
+    }
+
+    fun modifyDocumentValues(tag: String, previousValue: Any?, modifiedValue: Any, valueType: String) {
+        val ref = reservations.child(reservationKey).child("docs").child(documentKey).child(valueType).child(tag)
+        val query = ref.setValue(modifiedValue)
+
+        val taskAfterSuccess = {
+            val message = when (valueType) {
+                "editable" -> {
+                    "$tag: " +
+                            if (previousValue == null)
+                                "$modifiedValue 추가됨"
+                            else
+                                "$previousValue -> $modifiedValue 로 변경됨"
                 }
+                "selectable" -> {
+                    "$tag: " +
+                            if (modifiedValue as Boolean)
+                                "선택됨"
+                            else
+                                "해제됨"
+                }
+                "image-url" -> {
+                    "$tag 서명됨"
+                }
+                else -> null
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                Log.e("firebase-get", "문서 데이터를 가져오지 못했습니다.")
+            if (message != null) {
+                dbFailed.postValue(false)
+                addHistory(message)
             }
-        })
-    }
-
-    fun saveDocumentToDB(reservationKey: String, documentKey: String, documentElem: HashMap<String, String>) {
-        val ref = db.getReference("reservations").child(reservationKey).child("docs").child(documentKey)
-        val query = ref.child("elem").setValue(documentElem)
-
-        query.addOnSuccessListener {
-            Log.i("firebase-push", "문서 데이터 추가에 성공했습니다.")
-        }.addOnFailureListener {
-            Log.e("firebase-push", "문서 데이터 추가에 실패했습니다.")
         }
+
+        val listener = Listener(Strings.DB_PATCH.str, "문서 데이터 수정", taskAfterSuccess, {})
+        query.addOnSuccessListener(listener.SuccessListener())
+        query.addOnFailureListener(listener.FailureListener())
     }
 
-    fun getDocs(key: String, docs: MutableLiveData<List<Pair<String, Document>>>) {
+    private fun addHistory(message: String) {
+        val now = MainModel.getNowToString(MainModel.DATE_TIME_FORMAT)
+        val ref = reservations.child(reservationKey).child("docs").child(documentKey).child("history")
+        val query = ref.child(now).setValue(message)
 
-        Log.i("firebase-sync", "${key}의 변경을 감지합니다.")
+        val taskAfterSuccess = {
+            updateModifiedDateTime(now)
+        }
 
-        val query = db.getReference("reservations").child(key).child("docs")
+        val listener = Listener(Strings.DB_POST.str, "히스토리 추가", taskAfterSuccess, {})
+
+        query.addOnSuccessListener(listener.SuccessListener())
+        query.addOnFailureListener(listener.FailureListener())
+    }
+
+    fun getDocumentEntries(docs: MutableLiveData<List<Pair<String, DocumentInfo>>>) {
+        Log.i("firebase-sync", "${reservationKey}의 변경을 감지합니다.")
+
+        val query = reservations.child(reservationKey).child("docs")
 
         query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                Log.i("firebase-sync", "예약 키 ${key}의 데이터가 변경되었습니다.")
+                Log.i("firebase-sync", "예약 키 ${reservationKey}의 데이터가 변경되었습니다.")
                 Log.i("firebase-sync", "got value ${snapshot.value}")
-                if (snapshot.value != null) {
-                    val temp = arrayListOf<Pair<String, Document>>()
 
-                    snapshot.getValue<HashMap<String, Document>?>()!!.forEach {
-                        temp.add(Pair(it.key, it.value))
+                val temp = arrayListOf<Pair<String, DocumentInfo>>()
+
+                if (snapshot.exists()) {
+                    snapshot.children.forEach { child->
+                        val documentEntry = child.child("info").getValue<DocumentInfo>()
+                        if (documentEntry != null && child.key != null) {
+                            temp.add(Pair(child.key!!, documentEntry))
+                        }
                     }
-
-                    Log.i("firebase-sync", "processed ${temp}")
 
                     docs.postValue(temp.sortedBy { doc ->
                         doc.second.modifiedDateTime
                     })
+                }
+                else {
+                    docs.postValue(null)
                 }
             }
 
@@ -72,16 +112,78 @@ class DocumentRepository: BaseRepository() {
         })
     }
 
-    fun createNewDocument(newDocument: Document, reservationKey: String, newDocumentKey: MutableLiveData<String>) {
-        val dbRef = db.getReference("reservations").child(reservationKey).child("docs")
+    fun createNewDocumentInfo(newDocumentInfo: DocumentInfo, newDocumentKey: MutableLiveData<String>?) {
+        val dbRef = reservations.child(reservationKey).child("docs")
 
-        val newKey = dbRef.push().key
+        val key = if (newDocumentKey != null)
+            dbRef.push().key
+        else
+            documentKey
 
-        dbRef.child(newKey!!).setValue(newDocument).addOnSuccessListener {
-            Log.i("firebase-push", "추가 성공: $newDocument")
-            newDocumentKey.postValue(newKey)
+        if (key == null)
+            return
+
+        dbRef.child(key).child("info").setValue(newDocumentInfo).addOnSuccessListener {
+            Log.i("firebase-push", "추가 성공: $newDocumentInfo")
+            newDocumentKey?.postValue(key)
         }.addOnFailureListener {
-            Log.e("firebase-push", "추가 실패: $newDocument")
+            Log.e("firebase-push", "추가 실패: $newDocumentInfo")
+        }
+    }
+
+    fun deleteDocument() {
+        val dbRef = reservations.child(reservationKey).child("docs").child(documentKey)
+
+        dbRef.removeValue().addOnSuccessListener {
+            Log.i("firebase-delete", "삭제에 성공하였습니다.")
+        }.addOnFailureListener {
+            Log.e("firebase-delete", "삭제에 실패하였습니다.")
+        }
+    }
+
+    fun getDocumentInfo(
+        documentInfo: MutableLiveData<DocumentInfo>
+    ) {
+        val dbRef = reservations.child(reservationKey).child("docs").child(documentKey).child("info")
+        dbRef.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val retrievedDocumentInfo = snapshot.getValue<DocumentInfo>()
+                    if (retrievedDocumentInfo != null) {
+                        documentInfo.postValue(retrievedDocumentInfo)
+                        Log.i("firebase-get", "문서 정보 얻기에 성공하였습니다.")
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("firebase-get", "문서 정보 얻기에 실패하였습니다. $error")
+            }
+        })
+    }
+
+    fun <T: Any?>getDocumentValues(documentValues: MutableLiveData<HashMap<String, T>>, type: String) {
+        val dbRef = reservations.child(reservationKey).child("docs").child(documentKey).child(type)
+
+        dbRef.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val retrieved = snapshot.getValue<HashMap<String, T>>()
+                if (retrieved != null) {
+                    documentValues.postValue(retrieved)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+
+    fun getImageURLs(document: MutableLiveData<Document>) {
+        val dbRef = reservations.child(reservationKey).child("docs").child(documentKey).child("image-url")
+        dbRef.get().addOnSuccessListener {
+            if (it.value != null) {
+                document.value!!.imageURLs = it.getValue<HashMap<String, String>>()!!
+            }
         }
     }
 }

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.partyum.partyummanager.R
 import com.partyum.partyummanager.base.BaseFragment
 import com.partyum.partyummanager.databinding.FragmentNewDocumentsBinding
@@ -23,11 +22,11 @@ class NewDocumentFragment : BaseFragment<FragmentNewDocumentsBinding>() {
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
-        val documentTemplates = resources.getStringArray(R.array.document_templates)
-        val adapter = NewDocumentsRecycleViewAdapter(viewModel, documentTemplates)
-        binding.rvNewDocumentTemplates.setHasFixedSize(true)
-        binding.rvNewDocumentTemplates.layoutManager = LinearLayoutManager(this.context)
-        binding.rvNewDocumentTemplates.adapter = adapter
+        val documentTypes = resources.getStringArray(R.array.document_types)
+        val adapter = NewDocumentsRecycleViewAdapter(viewModel, documentTypes)
+        binding.rvNewDocumentTypes.setHasFixedSize(true)
+        binding.rvNewDocumentTypes.layoutManager = LinearLayoutManager(this.context)
+        binding.rvNewDocumentTypes.adapter = adapter
 
         return view
     }
