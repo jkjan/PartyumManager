@@ -33,7 +33,7 @@
                     android:orientation="horizontal">
 
                 <TextView
-                        style="@style/grid_text"
+                        style="@style/csc_text"
                         android:text="파티움하우스 수원 예식 안내문" />
 
                 <View
@@ -42,7 +42,7 @@
                         android:layout_weight="1" />
 
                 <TextView
-                        style="@style/grid_text"
+                        style="@style/csc_text"
                         android:id="@+id/tv_csc_visit_date"
                         android:gravity="end" />
 
@@ -55,89 +55,95 @@
                     android:background="@color/black" />
 
             <GridLayout
+                    android:padding="1dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:rowCount="7"
-                    grid:vertical
-                    android:columnCount="3">
+                    android:background="@color/black"
+                    android:layout_gravity="center"
+                    android:stretchColumns="*"
+                    android:columnCount="3"
+
+                    >
 
                 <TextView
                         style="@style/grid_text"
-                        android:text="필수사항" />
+                        android:text="필수사항"
+                        android:layout_height="wrap_content" />
 
-                <TextView
-                        style="@style/grid_text"
-                        android:text="내용" />
+                    <TextView
+                            style="@style/grid_text"
+                            android:text="내용" />
 
-                <TextView
-                        style="@style/grid_text"
-                        android:text="가격" />
+                    <TextView
+                            style="@style/grid_text"
+                            android:text="가격" />
 
-                <TextView
-                        style="@style/grid_text"
-                        android:text="예식홀 사용료" />
 
-                <TextView
-                        style="@style/grid_text"
-                        android:text="예식홀 2F or 3F" />
+                    <TextView
+                            style="@style/grid_text"
+                            android:text="예식홀 사용료" />
 
-                <TextView
-                        style="@style/grid_text"
-                        android:layout_rowSpan="3"
-                        android:layout_gravity="center"
-                        android:text="1,500,000원" />
+                    <TextView
+                            style="@style/grid_text"
+                            android:text="예식홀 2F or 3F" />
 
-                <TextView
-                        style="@style/grid_text"
-                        android:text="혼구용품" />
+                    <TextView
+                            android:layout_rowSpan="3"
+                            style="@style/grid_text"
+                            android:text="1,500,000원"
+                            />
 
-                <TextView
-                        style="@style/grid_text"
-                        android:text="장갑(7족), 혼인서약서, 성혼선언문, 방명록(2권), 축지 및 기타용품(펜, 봉투, 고무줄 등)" />
+                    <TextView
+                            style="@style/grid_text"
+                            android:text="혼구용품" />
 
-                <TextView
-                        style="@style/grid_text"
-                        android:text="특수연출" />
+                    <TextView
+                            style="@style/grid_text"
+                            android:text="장갑(7족), 혼인서약서, 성혼선언문, 방명록(2권), 축지 및 기타용품(펜, 봉투, 고무줄 등)" />
 
-                <TextView
-                        style="@style/grid_text"
-                        android:text="특수조명, 음향, 빔 사용 (직접준비)" />
 
-                <TextView
-                        style="@style/grid_text"
-                        android:text="캔들&amp;플라워" />
+                    <TextView
+                            style="@style/grid_text"
+                            android:text="특수연출" />
 
-                <TextView
-                        style="@style/grid_text"
-                        android:text="세련된 파티스트의 감각 꽃장식 - 테이블 티라이트" />
+                    <TextView
+                            style="@style/grid_text"
+                            android:text="특수조명, 음향, 빔 사용 (직접준비)" />
+                    <TextView
+                            style="@style/grid_text"
+                            android:text="캔들&amp;플라워" />
 
-                <TextView
-                        style="@style/grid_text"
-                        android:text="1,500,000원" />
+                    <TextView
+                            style="@style/grid_text"
+                            android:text="세련된 파티스트의 감각 꽃장식 - 테이블 티라이트" />
 
-                <TextView
-                        style="@style/grid_text"
-                        android:text="폐백실사용료" />
+                    <TextView
+                            style="@style/grid_text"
+                            android:text="1,500,000원" />
 
-                <TextView
-                        style="@style/grid_text"
-                        android:text="사모관대, 원삼, 족두리, 폐백수모비 포함" />
+                    <TextView
+                            style="@style/grid_text"
+                            android:text="폐백실사용료" />
 
-                <TextView
-                        style="@style/grid_text"
-                        android:text="150,000원" />
+                    <TextView
+                            style="@style/grid_text"
+                            android:text="사모관대, 원삼, 족두리, 폐백수모비 포함" />
 
-                <TextView
-                        style="@style/grid_text"
-                        android:text="컨시어즈" />
+                    <TextView
+                            style="@style/grid_text"
+                            android:text="150,000원" />
 
-                <TextView
-                        style="@style/grid_text"
-                        android:text="예식안내, 화촉점화도우미, 플라워샤워, 버틀러서비스" />
+                    <TextView
+                            style="@style/grid_text"
+                            android:text="컨시어즈" />
 
-                <TextView
-                        style="@style/grid_text"
-                        android:text="250,000원" />
+                    <TextView
+                            style="@style/grid_text"
+                            android:text="예식안내, 화촉점화도우미, 플라워샤워, 버틀러서비스" />
+
+                    <TextView
+                            style="@style/grid_text"
+                            android:text="250,000원" />
             </GridLayout>
 
         </LinearLayout>
