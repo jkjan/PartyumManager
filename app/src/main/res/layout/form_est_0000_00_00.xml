@@ -59,27 +59,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/black"
-                    android:layout_gravity="center"
-                    android:stretchColumns="*"
                     android:columnCount="3"
-
                     >
 
                 <TextView
                         style="@style/grid_text"
+                        android:background="@color/light_gray"
                         android:text="필수사항"
+                        android:layout_columnWeight="1"
                         android:layout_height="wrap_content" />
 
                     <TextView
+                            android:background="@color/light_gray"
                             style="@style/grid_text"
+                            android:layout_columnWeight="2"
                             android:text="내용" />
 
                     <TextView
+                            android:background="@color/light_gray"
                             style="@style/grid_text"
+                            android:layout_columnWeight="1"
                             android:text="가격" />
 
 
                     <TextView
+                            android:background="@color/light_gray"
                             style="@style/grid_text"
                             android:text="예식홀 사용료" />
 
@@ -94,15 +98,17 @@
                             />
 
                     <TextView
+                            android:background="@color/light_gray"
                             style="@style/grid_text"
                             android:text="혼구용품" />
 
                     <TextView
                             style="@style/grid_text"
-                            android:text="장갑(7족), 혼인서약서, 성혼선언문, 방명록(2권), 축지 및 기타용품(펜, 봉투, 고무줄 등)" />
+                            android:text="장갑(7족), 혼인서약서, 성혼선언문, 방명록(2권),\n축지 및 기타용품(펜, 봉투, 고무줄 등)" />
 
 
                     <TextView
+                            android:background="@color/light_gray"
                             style="@style/grid_text"
                             android:text="특수연출" />
 
@@ -110,8 +116,9 @@
                             style="@style/grid_text"
                             android:text="특수조명, 음향, 빔 사용 (직접준비)" />
                     <TextView
+                            android:background="@color/light_gray"
                             style="@style/grid_text"
-                            android:text="캔들&amp;플라워" />
+                            android:text="캔들 &amp; 플라워" />
 
                     <TextView
                             style="@style/grid_text"
@@ -123,6 +130,7 @@
 
                     <TextView
                             style="@style/grid_text"
+                            android:background="@color/light_gray"
                             android:text="폐백실사용료" />
 
                     <TextView
@@ -134,6 +142,7 @@
                             android:text="150,000원" />
 
                     <TextView
+                            android:background="@color/light_gray"
                             style="@style/grid_text"
                             android:text="컨시어즈" />
 
@@ -144,11 +153,277 @@
                     <TextView
                             style="@style/grid_text"
                             android:text="250,000원" />
+
             </GridLayout>
 
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"/>
+
+            <GridLayout
+                    style="@style/grid"
+                    >
+
+                <TextView
+                        android:background="@color/light_gray"
+                        style="@style/grid_text"
+                        android:text="드레스"
+                        android:layout_columnWeight="1"
+                        />
+                <TextView
+                        android:layout_columnWeight="2"
+                        style="@style/grid_text"
+                        android:text="웨딩드레스(드레스 추가금 있음)\n/도우미 비용 15만원 별도"
+                        />
+                <TextView
+                        style="@style/grid_text"
+                        android:text="900,000원~"
+                        android:layout_columnWeight="1"
+                        />
+                <TextView
+                        android:background="@color/light_gray"
+                        style="@style/grid_text"
+                        android:text="헤어 &amp; 메이크업"
+                        />
+                <TextView
+                        style="@style/grid_text"
+                        android:text="신랑, 신부 본식 Hair &amp; Make up"
+                        />
+                <TextView
+                        style="@style/grid_text"
+                        android:text="100,000원"
+                        />
+                <TextView
+                        android:background="@color/light_gray"
+                        style="@style/grid_text"
+                        android:text="본식스냅"
+                        />
+                <TextView
+                        style="@style/grid_text"
+                        android:text="원판 2권(10p), 스냅앨범 1권 (20p + 원판 10p)\n원본별도(150,000)"
+                        />
+                <TextView
+                        style="@style/grid_text"
+                        android:text="700,000원"
+                        />
+                <TextView
+                        android:background="@color/light_gray"
+                        style="@style/grid_text"
+                        android:text="스튜디오 패키지"
+                        />
+                <TextView
+                        style="@style/grid_text"
+                        android:text="20p 앨범, 20R 액자\n리허설 촬영 드레스, 턱시도, Hair, Make up\n(도우미 비용 15만원, 원본 CD 별도)\n촬영날짜 연기나 취소 시 위약금 발생"
+                        />
+                <TextView
+                        style="@style/grid_text"
+                        android:text="1,200,000원"
+                        />
+
+            </GridLayout>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"/>
+            <TextView
+                    style="@style/csc_text"
+                    android:textSize="12sp"
+                    android:layout_gravity="start"
+                    android:text="※ 스튜디오\nTOTAL-라망 (시그니처, F1), 가을(시그니처, 더 브라이드), 이포토에세이, 봉, 어반, 로이스튜디오, 미학, 웨딩시너스"
+                    />
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"/>
+
+            <TextView
+                    style="@style/csc_text"
+                    android:layout_gravity="start"
+                    android:textStyle="bold"
+                    android:text="● 선택사항 (현금 결제)"
+                    />
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"/>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <GridLayout
+                style="@style/grid"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="start"
+                        android:columnCount="2">
+                    <TextView style="@style/grid_text"
+                            android:background="@color/light_gray"
+                            android:text="부케 &amp; 부토니아\n(수입 꽃 추가금 발생)"/>
+                    <TextView style="@style/grid_text"
+                            android:text="200,000원"/>
+                    <TextView style="@style/grid_text"
+                            android:background="@color/light_gray"
+                            android:text="사회"/>
+                    <TextView style="@style/grid_text"
+                            android:text="250,000원"/>
+                    <TextView style="@style/grid_text"
+                            android:background="@color/light_gray"
+                            android:text="주례"/>
+                    <TextView style="@style/grid_text"
+                            android:text="150,000원"/>
+                    <TextView style="@style/grid_text"
+                            android:background="@color/light_gray"
+                            android:text="폐백음식"/>
+                    <TextView style="@style/grid_text"
+                            android:text="200,000원~"/>
+                </GridLayout>
+
+                <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+                <GridLayout
+                        style="@style/grid"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:columnCount="2">
+                    <TextView style="@style/grid_text"
+                            android:background="@color/light_gray"
+                            android:text="포토테이블"/>
+                    <TextView style="@style/grid_text"
+                            android:text="50,000원"/>
+                    <TextView style="@style/grid_text"
+                            android:background="@color/light_gray"
+                            android:text="모바일초대장"/>
+                    <TextView style="@style/grid_text"
+                            android:text="80,000원"/>
+                    <TextView style="@style/grid_text"
+                            android:background="@color/light_gray"
+                            android:text="식전영상"/>
+                    <TextView style="@style/grid_text"
+                            android:text="50,000원"/>
+                    <TextView style="@style/grid_text"
+                            android:background="@color/light_gray"
+                            android:layout_rowSpan="2"
+                            android:text="혼주메이크업"/>
+                    <TextView style="@style/grid_text"
+                            android:text="女 - 120,000원"/>
+                    <TextView style="@style/grid_text"
+                            android:text="男 - 50,000원"/>
+                </GridLayout>
+
+                <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                <GridLayout
+                        style="@style/grid"
+                        android:layout_gravity="end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:columnCount="2">
+                    <TextView style="@style/grid_text"
+                            android:background="@color/light_gray"
+                            android:text="현악 삼중주"/>
+                    <TextView style="@style/grid_text"
+                            android:text="150,000원~"/>
+                    <TextView style="@style/grid_text"
+                            android:background="@color/light_gray"
+                            android:text="청첩장"/>
+                    <TextView style="@style/grid_text"
+                            android:text="100~ 주문가능"/>
+                    <TextView style="@style/grid_text"
+                            android:background="@color/light_gray"
+                            android:text="축가"/>
+                    <TextView style="@style/grid_text"
+                            android:text="200,000원"/>
+                    <TextView style="@style/grid_text"
+                            android:background="@color/light_gray"
+                            android:text="DVD"/>
+                    <TextView style="@style/grid_text"
+                            android:text="400,000원"/>
+                </GridLayout>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"/>
+
+            <GridLayout
+                style="@style/grid"
+                    android:columnCount="2">
+                <TextView
+                        android:layout_columnWeight="1"
+                        style="@style/grid_text"
+                        android:text="뷔페\n음, 주류 포함 / 부가세 10% 포함\n연회장 예식시간 30분전~2시간\n혼주석 예식시간~2시간 사용가능\n※연회장소는 지하 1F 또는 4F, 5F 랜덤배정"/>
+                <TextView
+                        android:layout_columnWeight="1"
+                        style="@style/grid_text"
+                        android:text="대인 48,000원\n소인 25,000원 (8~13살)"/>
+                <TextView
+                    style="@style/grid_text"
+                        android:layout_columnSpan="2"
+                        android:background="@color/light_gray"
+                        android:textStyle="bold"
+                        android:text="계약 후 시식 6명 - 계약 취소시 차감 후 환불(1인당 4만원), 시식 예약 필수"
+                        />
+
+            </GridLayout>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"/>
+            <TextView
+                    style="@style/csc_text"
+                    android:textSize="12sp"
+                    android:layout_gravity="start"
+                    android:text="※ 보증인원 - 최소 250명 &lt;군, 경 외부 예도 이벤트는 불가능&gt;"
+                    />
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"/>
+
+            <GridLayout
+                    android:layout_gravity="start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2">
+
+                <TextView
+                        style="@style/csc_text"
+                        android:text="성함 : "
+                        />
+
+                <EditText style="@style/csc_text"/>
+
+                <TextView style="@style/csc_text"
+                        android:text="연락처 : "/>
+
+                <EditText style="@style/csc_text"/>
+
+            </GridLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"/>
+
+<!--            -->
+            <TextView
+                    style="@style/csc_text"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:text="파티움하우스 수원 TEL 031.239.8866 / FAX 031.238.5581"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+<!--            <ImageView-->
+<!--                    android:layout_marginBottom="20dp"-->
+<!--                    android:layout_width="250dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:src="@drawable/iv_partyum_title" />-->
+<!--            -->
+
         </LinearLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

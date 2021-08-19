@@ -80,6 +80,7 @@
         <item name="android:background">@drawable/border</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">5dp</item>
+        <item name="android:layout_margin">0.5dp</item>
 <!--        <item name="android:gravity">center</item>-->
         <item name="android:layout_gravity">fill</item>
 <!--        <item name="android:background">#ffeeeeee</item>-->
@@ -87,4 +88,19 @@
 <!--        <item name="android:verticalSpacing">0.5dp</item>-->
     </style>
 
+    <style name="grid">
+        <item name="android:padding">1dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/black</item>
+        <item name="android:columnCount">3</item>
+    </style>
+
 </resources>
+
+<!--
+
+        (\s*)(.*)="(.*)"\n
+        $1<item name="$2">$3</item>\n
+
+-->
