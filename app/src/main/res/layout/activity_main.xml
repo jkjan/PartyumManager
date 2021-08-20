@@ -13,6 +13,8 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:weightSum="5"
+            android:gravity="center"
             android:orientation="vertical">
 
         <View
@@ -21,34 +23,37 @@
                 android:layout_weight="1" />
 
         <ImageView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:src="@drawable/iv_partyum_title"
-                android:layout_gravity="center"
+                android:layout_margin="30dp"
                 android:contentDescription="@string/title_img"
-                android:layout_weight="1.5"
+                android:layout_weight="1"
                 android:adjustViewBounds="true" />
 
-        <LinearLayout
+
+        <GridLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="1">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:columnCount="3"
+
+                android:rowCount="1">
 
             <View
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    tools:ignore="NestedWeights" />
+                    android:layout_columnWeight="2"
+                    android:layout_height="0dp"/>
 
             <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:layout_gravity="center">
+                    >
 
-                <Button
+                <TextView
                         style="@style/main_button_theme"
                         android:text="@string/new_reservation"
                         android:onClick="@{()->mainVM.onClick(Command.NEW_RESERVATION)}" />
@@ -57,7 +62,7 @@
                         style="@style/main_button_divider"
                         android:contentDescription="@string/main_button_divider" />
 
-                <Button
+                <TextView
                         style="@style/main_button_theme"
                         android:text="@string/search"
                         android:onClick="@{()->mainVM.onClick(Command.SEARCH_RESERVATION)}" />
@@ -66,7 +71,7 @@
                         style="@style/main_button_divider"
                         android:contentDescription="@string/main_button_divider" />
 
-                <Button
+                <TextView
                         style="@style/main_button_theme"
                         android:text="@string/reservation_status"
                         android:onClick="@{()->mainVM.onClick(Command.RESERVATION_STATUS)}" />
@@ -75,7 +80,7 @@
                         style="@style/main_button_divider"
                         android:contentDescription="@string/main_button_divider" />
 
-                <Button
+                <TextView
                         style="@style/main_button_theme"
                         android:text="@string/administrator"
                         android:onClick="@{()->mainVM.onClick(Command.ADMINISTRATOR)}" />
@@ -83,23 +88,22 @@
             </LinearLayout>
 
             <View
+                    android:layout_columnWeight="2"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="2" />
+                    android:layout_height="wrap_content"/>
 
-        </LinearLayout>
+        </GridLayout>
 
         <View
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_weight="0.7" />
+                android:layout_weight="1.7" />
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="0.3"
                 android:layout_gravity="center"
-                android:textColor="@color/light_gray"
                 android:text="@string/copyright_info" />
 
     </LinearLayout>

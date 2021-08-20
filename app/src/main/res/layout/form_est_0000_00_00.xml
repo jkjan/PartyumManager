@@ -12,23 +12,32 @@
                 type="DocumentViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content">-->
 
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@android:color/white"
-                app:layout_constraintDimensionRatio="H,1:1.414"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:orientation="vertical"
-                android:layout_margin="30dp"
-                android:gravity="center">
+            <!-- Content here. -->
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    >
+
+<!--        <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:background="@android:color/white"-->
+<!--                app:layout_constraintDimensionRatio="H,1:1.414"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_margin="30dp"-->
+<!--                android:gravity="center">-->
 
             <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -43,8 +52,8 @@
 
                 <TextView
                         style="@style/csc_text"
-                        android:id="@+id/tv_csc_visit_date"
-                        android:gravity="end" />
+                        android:layout_gravity="end"
+                        android:id="@+id/tv_csc_visit_date" />
 
             </LinearLayout>
 
@@ -226,13 +235,12 @@
                     android:layout_height="5dp"/>
             <TextView
                     style="@style/csc_text"
-                    android:textSize="12sp"
                     android:layout_gravity="start"
                     android:text="※ 스튜디오\nTOTAL-라망 (시그니처, F1), 가을(시그니처, 더 브라이드), 이포토에세이, 봉, 어반, 로이스튜디오, 미학, 웨딩시너스"
                     />
             <View
                     android:layout_width="match_parent"
-                    android:layout_height="5dp"/>
+                    android:layout_height="20dp"/>
 
             <TextView
                     style="@style/csc_text"
@@ -375,7 +383,6 @@
                     android:layout_height="5dp"/>
             <TextView
                     style="@style/csc_text"
-                    android:textSize="12sp"
                     android:layout_gravity="start"
                     android:text="※ 보증인원 - 최소 250명 &lt;군, 경 외부 예도 이벤트는 불가능&gt;"
                     />
@@ -408,22 +415,35 @@
                     android:layout_height="5dp"/>
 
 <!--            -->
-            <TextView
-                    style="@style/csc_text"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:text="파티움하우스 수원 TEL 031.239.8866 / FAX 031.238.5581"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
 
-<!--            <ImageView-->
-<!--                    android:layout_marginBottom="20dp"-->
-<!--                    android:layout_width="250dp"-->
-<!--                    android:layout_height="100dp"-->
-<!--                    android:src="@drawable/iv_partyum_title" />-->
-<!--            -->
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="0dp"/>
+            <ImageView
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_width="250dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/iv_partyum_title" />
 
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="30dp"/>
+
+                <TextView
+                        style="@style/csc_text"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:textStyle="bold"
+                        android:text="파티움하우스 수원 TEL 031.239.8866 / FAX 031.238.5581"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+<!--        </com.otaliastudios.zoom.ZoomLayout>-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 </layout>

@@ -11,7 +11,7 @@
     </data>
 
     <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
@@ -66,20 +66,21 @@
 
         <LinearLayout
                 android:id="@+id/ll_reservations"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone"
-                android:gravity="center">
+                android:layout_gravity="center">
 
             <TextView
-                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/reservation_select_desc"
                     />
 
             <androidx.core.widget.NestedScrollView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="30dp"
                     android:fillViewport="true"
@@ -87,7 +88,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_reservation_select"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical" />
 

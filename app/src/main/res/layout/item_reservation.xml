@@ -16,41 +16,41 @@
                 name="reservation_key"
                 type="String" />
     </data>
+    <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:onClick="@{()->viewModel.selectReservation(reservation_key)}"
+            >
 
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="?attr/selectableItemBackground"
-                android:onClick="@{()->viewModel.selectReservation(reservation_key)}"
-                android:gravity="center"
-                >
+        <TextView
+                style="@style/reservation_item_pos"
+                android:layout_columnWeight="1"
+                android:text="@string/groom" />
+        <View
+                android:layout_width="5dp"
+                android:layout_height="0dp" />
 
-            <TextView
-                    style="@style/reservation_item_pos"
-                    android:text="@string/groom" />
+        <TextView
+                style="@style/reservation_item_name"
+                android:text="@{viewModel.reservationEntries[position].second.groomName}" />
 
-            <TextView
-                    style="@style/reservation_item_name"
-                    android:id="@+id/tv_reservation_item_groom_name"
-                    android:text="@{viewModel.reservationEntries[position].second.groomName}"
-                    />
+        <View
+                android:layout_width="30dp"
+                android:layout_height="0dp" />
 
-            <View
-                    android:layout_width="15dp"
-                    android:layout_height="0dp" />
+        <TextView
+                style="@style/reservation_item_pos"
+                android:text="@string/bride" />
+        <View
+                android:layout_width="5dp"
+                android:layout_height="0dp" />
 
-            <TextView
-                    style="@style/reservation_item_pos"
-                    android:text="@string/bride" />
+        <TextView
+                style="@style/reservation_item_name"
+                android:text="@{viewModel.reservationEntries[position].second.brideName}" />
 
-            <TextView
-                    style="@style/reservation_item_name"
-                    android:id="@+id/tv_reservation_item_bride_name"
-                    android:text="@{viewModel.reservationEntries[position].second.brideName}"/>
-
-
-        </LinearLayout>
-
+    </LinearLayout>
 
 </layout>

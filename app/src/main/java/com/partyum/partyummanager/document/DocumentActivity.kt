@@ -141,8 +141,14 @@ class DocumentActivity : BaseActivity<ActivityDocumentBinding>(), PopupMenu.OnMe
                         val now = MainModel.getNowToString(getString(R.string.date_format_for_file))
                         val fileName = "${documentName}_$now.pdf"
 
-                        // PDF 생성
-                        val pdf = viewModel.generatePdf(binding.documentForm.root, this.cacheDir.absolutePath + File.separator + fileName)
+
+
+
+                        binding.zoomableLayout.zoomBy(0f, false)
+//                        binding.zoomableLayout.zoomOut()
+//
+//                        // PDF 생성
+                        val pdf = viewModel.generatePdf(binding.zoomableLayout, this.cacheDir.absolutePath + File.separator + fileName)
 
                         // PDF 생성에 성공했을 경우
                         if (pdf != null) {
