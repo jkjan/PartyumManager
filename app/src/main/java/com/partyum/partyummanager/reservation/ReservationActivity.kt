@@ -21,6 +21,7 @@ class ReservationActivity : BaseActivity<ActivityReservationBinding>(), PopupMen
         get() = R.layout.activity_reservation
     private var newDocumentFragment: NewDocumentFragment? = null
     private var modifyReservationFragment: ModifyReservationFragment? = null
+    private lateinit var adapter: DocumentsRecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val reservationKey = intent.getStringExtra(getString(R.string.main_to_reservation_intent))!!
@@ -32,7 +33,7 @@ class ReservationActivity : BaseActivity<ActivityReservationBinding>(), PopupMen
         super.onCreate(savedInstanceState)
 
         // 예약의 문서 리스트를 리사이클러뷰에 띄움
-        val adapter = DocumentsRecyclerViewAdapter(viewModel)
+        adapter = DocumentsRecyclerViewAdapter(viewModel)
         binding.rvDocs.setHasFixedSize(true)
         binding.rvDocs.layoutManager = LinearLayoutManager(this)
         binding.rvDocs.adapter = adapter
@@ -62,10 +63,14 @@ class ReservationActivity : BaseActivity<ActivityReservationBinding>(), PopupMen
         // 문서 데이터 동기화
         viewModel.getDocumentsFromDB().observe(this, {
             if (binding.rvDocs.adapter != null) {
-                viewModel.showSnackBar(R.string.data_retrieved)
+                viewModel.showSnackBar("문서들을 가져왔습니다.")
 
-                // 리사이클러뷰 업데이트
-                binding.rvDocs.adapter!!.notifyDataSetChanged()
+//                // 리사이클러뷰 업데이트
+//                binding.rvDocs.adapter!!.notifyDataSetChanged()
+
+                if (this::adapter.isInitialized) {
+                    binding.rvDocs.adapter = adapter
+                }
             }
         })
 

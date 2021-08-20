@@ -29,6 +29,7 @@ class MainViewModel(private val reservationRepository: ReservationRepository): B
 
     // 새 예약 추가 시 사용되는 변수 초기화
     fun initNewReservation() {
+        reservationRepository.dbFailed = dbFailed
         reservationKey = MutableLiveData(null)
         invalidDate = MutableLiveData(false)
         invalidNumber = MutableLiveData(false)
@@ -73,6 +74,7 @@ class MainViewModel(private val reservationRepository: ReservationRepository): B
         phoneNumber = MutableLiveData("")
         invalidNumber = MutableLiveData(false)
         invalidDate = MutableLiveData(false)
+        reservationRepository.dbFailed = dbFailed
     }
 
     // 전화번호 유효성을 체크하고, 유효할 시 DB에 검색

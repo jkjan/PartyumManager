@@ -27,6 +27,8 @@ class ReservationViewModel(private val documentRepository: DocumentRepository, p
     fun setReservationKey(reservationKey: String) {
         reservationRepository.reservationKey = reservationKey
         documentRepository.reservationKey = reservationKey
+        reservationRepository.dbFailed = dbFailed
+        documentRepository.dbFailed = dbFailed
     }
 
     fun initModification() {

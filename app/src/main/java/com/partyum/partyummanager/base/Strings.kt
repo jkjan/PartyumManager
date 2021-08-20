@@ -8,5 +8,4 @@ enum class Strings(var str: String) {
     DB_PUT("${DB_NAME.str}_put"),
     DB_DELETE("${DB_NAME.str}_delete"),
 
-
 }

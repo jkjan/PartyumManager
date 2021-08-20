@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.EditText
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.core.content.FileProvider
@@ -141,8 +142,15 @@ class DocumentActivity : BaseActivity<ActivityDocumentBinding>(), PopupMenu.OnMe
                         val now = MainModel.getNowToString(getString(R.string.date_format_for_file))
                         val fileName = "${documentName}_$now.pdf"
 
-
-
+                        if (viewModel.editableValues.value != null) {
+                            viewModel.editableValues.value!!.keys.forEach { id->
+                                val stringId = resources.getIdentifier(id, "id", packageName)
+                                val et = findViewById<EditText>(stringId)
+                                et.clearFocus()
+                                et.isEnabled = false
+                                Log.i("d", "unfocused")
+                            }
+                        }
 
                         binding.zoomableLayout.zoomBy(0f, false)
 //                        binding.zoomableLayout.zoomOut()

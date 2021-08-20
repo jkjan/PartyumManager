@@ -10,7 +10,6 @@ import com.partyum.partyummanager.base.BaseRepository
 import com.partyum.partyummanager.base.Strings
 import com.partyum.partyummanager.dao.Document
 import com.partyum.partyummanager.dao.DocumentInfo
-import com.partyum.partyummanager.dto.DocumentEntry
 import com.partyum.partyummanager.model.MainModel
 
 
@@ -19,7 +18,7 @@ class DocumentRepository: BaseRepository() {
         val ref = reservations.child(reservationKey).child("docs").child(documentKey).child("info").child("modifiedDateTime")
         val query = ref.setValue(now)
 
-        val listener = Listener(Strings.DB_PATCH.str, "생성일 수정", {}, {})
+        val listener = Listener(Strings.DB_PATCH.str, "생성일 수정")
 
         query.addOnSuccessListener(listener.SuccessListener())
         query.addOnFailureListener(listener.FailureListener())
@@ -29,7 +28,9 @@ class DocumentRepository: BaseRepository() {
         val ref = reservations.child(reservationKey).child("docs").child(documentKey).child(valueType).child(tag)
         val query = ref.setValue(modifiedValue)
 
-        val taskAfterSuccess = {
+        val listener = Listener(Strings.DB_PATCH.str, "문서 데이터 수정")
+
+        val methodOnSuccess = { _: Any? ->
             val message = when (valueType) {
                 "editable" -> {
                     "$tag: " +
@@ -57,8 +58,7 @@ class DocumentRepository: BaseRepository() {
             }
         }
 
-        val listener = Listener(Strings.DB_PATCH.str, "문서 데이터 수정", taskAfterSuccess, {})
-        query.addOnSuccessListener(listener.SuccessListener())
+        query.addOnSuccessListener(listener.SuccessListener(methodOnSuccess))
         query.addOnFailureListener(listener.FailureListener())
     }
 
@@ -67,13 +67,12 @@ class DocumentRepository: BaseRepository() {
         val ref = reservations.child(reservationKey).child("docs").child(documentKey).child("history")
         val query = ref.child(now).setValue(message)
 
-        val taskAfterSuccess = {
-            updateModifiedDateTime(now)
+        val listener = Listener(Strings.DB_POST.str, "히스토리 추가")
+        val methodOnSuccess = { _: Any?->
+                updateModifiedDateTime(now)
         }
 
-        val listener = Listener(Strings.DB_POST.str, "히스토리 추가", taskAfterSuccess, {})
-
-        query.addOnSuccessListener(listener.SuccessListener())
+        query.addOnSuccessListener(listener.SuccessListener(methodOnSuccess))
         query.addOnFailureListener(listener.FailureListener())
     }
 
@@ -82,34 +81,30 @@ class DocumentRepository: BaseRepository() {
 
         val query = reservations.child(reservationKey).child("docs")
 
-        query.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                Log.i("firebase-sync", "예약 키 ${reservationKey}의 데이터가 변경되었습니다.")
-                Log.i("firebase-sync", "got value ${snapshot.value}")
+        val listener = Listener(Strings.DB_GET.str, "예약 키 ${reservationKey}의 문서 정보 얻기")
 
-                val temp = arrayListOf<Pair<String, DocumentInfo>>()
+        val methodOnDataChange = {snapshot: DataSnapshot->
+            val temp = arrayListOf<Pair<String, DocumentInfo>>()
 
-                if (snapshot.exists()) {
-                    snapshot.children.forEach { child->
-                        val documentEntry = child.child("info").getValue<DocumentInfo>()
-                        if (documentEntry != null && child.key != null) {
-                            temp.add(Pair(child.key!!, documentEntry))
-                        }
+            if (snapshot.exists()) {
+                snapshot.children.forEach { child->
+                    val documentEntry = child.child("info").getValue<DocumentInfo>()
+                    if (documentEntry != null && child.key != null) {
+                        temp.add(Pair(child.key!!, documentEntry))
+                        Log.i("시발련아", Pair(child.key!!, documentEntry).toString())
                     }
-
-                    docs.postValue(temp.sortedBy { doc ->
-                        doc.second.modifiedDateTime
-                    })
                 }
-                else {
-                    docs.postValue(null)
-                }
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                Log.i("firebase-sync", "변경사항을 가져오지 못하였습니다.")
+                docs.postValue(temp.sortedByDescending { doc ->
+                    doc.second.modifiedDateTime
+                })
             }
-        })
+            else {
+                docs.postValue(null)
+            }
+        }
+
+        query.addValueEventListener(listener.DataChangeListener(methodOnDataChange))
     }
 
     fun createNewDocumentInfo(newDocumentInfo: DocumentInfo, newDocumentKey: MutableLiveData<String>?) {

@@ -12,6 +12,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override val viewModel: MainViewModel by sharedViewModel()
     override val layoutResourceId: Int
         get() = R.layout.fragment_search
+    lateinit var adapter: ReservationRecyclerViewAdapter
 
     override fun bindData() {
         // 뷰 바인딩
@@ -65,7 +66,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 if (it != null) {
                     if (it.isNotEmpty()) {
                         if (binding.rvReservationSelect.adapter != null) {
-                            binding.rvReservationSelect.adapter!!.notifyDataSetChanged()
+//                            binding.rvReservationSelect.adapter!!.notifyDataSetChanged()
+                            if (this::adapter.isInitialized) {
+                                binding.rvReservationSelect.adapter = adapter
+                            }
                         }
                         else {
                             binding.llReservations.visibility = View.VISIBLE

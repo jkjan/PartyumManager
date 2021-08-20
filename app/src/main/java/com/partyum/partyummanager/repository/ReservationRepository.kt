@@ -7,6 +7,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.partyum.partyummanager.base.BaseRepository
+import com.partyum.partyummanager.base.Strings
 import com.partyum.partyummanager.dao.ReservationInfo
 import com.partyum.partyummanager.dto.ReservationEntry
 
@@ -18,19 +19,15 @@ class ReservationRepository : BaseRepository() {
 
         val query = reservations.child(reservationKey).child("info")
 
-        query.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                Log.i("firebase-sync", "예약 키 ${reservationKey}의 데이터가 변경되었습니다.")
-                Log.i("firebase-sync", "got value ${snapshot.value}")
-                if (snapshot.value != null) {
-                    reservation.postValue(snapshot.getValue<ReservationInfo>())
-                }
-            }
+        val listener = Listener(Strings.DB_GET.str, "예약 키 ${reservationKey}의 정보 얻기")
 
-            override fun onCancelled(error: DatabaseError) {
-                Log.i("firebase-sync", "변경사항을 가져오지 못하였습니다.")
+        val methodOnDataChange = { snapshot: DataSnapshot ->
+            if (snapshot.value != null) {
+                reservation.postValue(snapshot.getValue<ReservationInfo>())
             }
-        })
+        }
+
+        query.addValueEventListener(listener.DataChangeListener(methodOnDataChange))
     }
 
     fun getReservationsByNumber(

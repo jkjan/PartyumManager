@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!-- 파티움하우스 수원 예식 안내문 -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:grid="http://schemas.android.com/tools">
+        >
 
     <data>
 
@@ -11,30 +10,13 @@
                 name="viewModel"
                 type="DocumentViewModel" />
     </data>
-
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content">-->
-
-            <!-- Content here. -->
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="10dp"
+                    android:gravity="center"
                     >
-
-<!--        <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="0dp"-->
-<!--                android:background="@android:color/white"-->
-<!--                app:layout_constraintDimensionRatio="H,1:1.414"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                app:layout_constraintRight_toRightOf="parent"-->
-<!--                android:orientation="vertical"-->
-<!--                android:layout_margin="30dp"-->
-<!--                android:gravity="center">-->
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -401,12 +383,21 @@
                         android:text="성함 : "
                         />
 
-                <EditText style="@style/csc_text"/>
+                <EditText
+                        style="@style/csc_text"
+                        android:autoSaver="@{viewModel}"
+                        android:id="@+id/est_name"
+                        android:tag="est_name"
+                        />
 
                 <TextView style="@style/csc_text"
                         android:text="연락처 : "/>
 
-                <EditText style="@style/csc_text"/>
+                <EditText style="@style/csc_text"
+                        android:autoSaver="@{viewModel}"
+                        android:id="@+id/est_contact"
+                        android:tag="est_contact"
+                        />
 
             </GridLayout>
 
@@ -438,12 +429,5 @@
                         android:text="파티움하우스 수원 TEL 031.239.8866 / FAX 031.238.5581"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
-
-
             </LinearLayout>
-
-<!--        </com.otaliastudios.zoom.ZoomLayout>-->
-
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
 </layout>
